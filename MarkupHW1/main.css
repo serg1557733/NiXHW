@@ -1,0 +1,198 @@
+html {
+    box-sizing: border-box;
+}
+*, ::after, ::before {
+    box-sizing: inherit;
+
+}
+.container {
+    max-width: 1150px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 10px;
+}
+
+.card__box {
+    min-height: 460px;
+    max-width: 600px;
+    position: relative;
+    margin: 10px auto;
+    padding: 35px 50px 50px 50px;
+    background-color:#0d5825;
+    font-size: 25px;
+    color:aliceblue;
+    margin-bottom: 100px;
+}
+
+blockquote, p {
+    margin: 0;
+}
+blockquote {
+    margin-bottom: 90px;
+}
+.card {
+    position: absolute;
+    left: 50%;
+    transform: translate(-15%, 5%) rotate(10deg);
+    z-index:3;
+    transition: all 0.3S ease-in;
+}
+
+.card:last-child {
+    transform: translate(-85%, -5%) rotate(-25deg);
+    z-index: 1;
+}
+.card:nth-child(2) {
+    transform: translate(-50%, -5%) rotate(-10deg);
+    z-index: 2;
+}
+.card:hover {
+    transform: translate(-15%, -10%) rotate(10deg);
+    cursor: pointer;
+}
+.card:nth-child(2):hover {
+    transform: translate(-50%, -15%) rotate(-10deg);
+    z-index: 2;
+    cursor: pointer;
+}
+.card:last-child:hover {
+    transform: translate(-85%, -15%) rotate(-25deg);
+    cursor: pointer;
+}
+.box__wrapper{
+    position: relative;
+    margin-bottom: 100px;
+}
+
+.box {
+    height: 60px;
+    width: 60px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    background-color:rgb(127, 241, 127); 
+}
+.box:first-child {
+    background-color:rgb(147, 85, 192);
+    top: -33px;
+    left: 47%;
+    z-index: 5;
+}
+.box:last-child {
+    background-color:rgb(241, 95, 76);
+    top: -68px;
+    left: 44%;
+}
+
+
+
+
+@keyframes boxRuning {
+    0% {
+        background-color:red;
+        left: 0;
+        top: 0;
+
+    }
+    25% {
+        background-color:blue;
+        left: 0px;
+        top: 200px;
+    }
+    50% {
+        background-color:green;
+        left: 200px;
+        top: 200px;    
+    }
+    75% {
+        background-color:yellow;
+        left: 200px;
+        top: 0;
+    }
+    100% {
+        background-color:red;
+        left: 0;
+        top: 0;
+        
+    }
+}
+
+
+.header {
+    width: 245px;
+    position: fixed;
+    top: 0;
+    left:-205px;
+    bottom: 0;
+    background-color:#808080;
+    color:#fff;
+    padding:20px 30px;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+.header::after {
+    content:attr(data-name);
+    position: absolute;
+    top: 50%;
+    right: -25px;
+    transform: rotate(90deg);
+    transition: all .3s ease-in;
+    opacity: 1;
+    visibility: visible;
+}
+.header:hover {
+    transition: all .3s ease-in;
+    left:0px;
+
+}
+.header:hover::after {
+    transition: all .3s ease-in;
+    opacity: 0;
+    visibility: hidden;
+}
+.header a {
+    color:inherit;
+    text-decoration: none;
+    text-transform: uppercase;   
+}
+.nav_list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.nav_item {
+    margin-left: 20px;
+    margin-bottom: 10px;
+    position: relative;
+}
+.nav_item::before {
+    content:'';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    left:-25px;
+    background-color:rgb(255, 236, 60);
+    transform: rotate(45deg) translateY(50%);
+    border: solid 1px black;
+
+}
+.header a:hover {
+    transition: all 0.4s ease-in;
+   color: rgb(255, 236, 60);
+}
+.space {
+    height: 100px;
+}
+.box_animation {
+    width: 300px;
+    height: 300px;
+    position: relative;
+    margin: 0 auto;
+}
+.box_run {
+    width: 100px;
+    height: 100px;
+    background-color:red;
+    position: absolute;
+    animation: boxRuning 3.5s ease-in 0s infinite;
+}
