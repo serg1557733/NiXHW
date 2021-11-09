@@ -1,4 +1,4 @@
-/* let a = 5;
+ let a = 5;
 let b, c;
 console.log(b)
 b = a * 5;
@@ -176,21 +176,33 @@ console.log(user);
 
 let age = +prompt("Сколько вам лет?", "");
 
-if ((age > 0) && (age < 18)) {
+if (age > 0 && age < 18) {
     alert("школьник");
-} else if ((age > 18) && (age < 30)) {
-    alert("молодеж");
-} else if ((age > 30) && (age < 45)) {
-    alert("зрелость");
-} else if ((age > 45) && (age < 60)) {
-    alert("закат");
-} else if (age > 60) {
-    alert("как пенсия?");
-} else if (age <= 0) {
-    alert("как родишься приходи");
-} else {
-    alert("то ли киборг, то ли ошибка");
+} 
+else {
+    if (age < 30) {
+            alert("молодеж");
+        } else {
+            if (age < 45) {
+            alert("зрелость");
+            } else {
+                if (age < 60) {
+                    alert("закат");
+                } else {
+                    if (age > 60) {
+                        alert("как пенсия?");
+                        }  else {
+                            if (age <= 0) {
+                                alert("как родишься приходи");
+                            } else {
+                                alert("то ли киборг, то ли ошибка");
+                            }
+                        }
+                }
+            }                 
+        }      
 }
+
 //Comparison: sizes
 
 let userSize = +prompt('Enter you waist coverage', '');
@@ -215,11 +227,11 @@ if (userSize && !isNaN(userSize)) {
     } else {
         alert('maybe stop eating');
     }
-} */
+}
 
 //Ternary
 
-//confirm('Are you a men?') ? alert('You are men') : alert('You are women');
+confirm('Are you a men?') ? alert('You are men') : alert('You are women');
 
 //Синий пояс Number: flats 
 
