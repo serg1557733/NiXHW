@@ -1,0 +1,28 @@
+.footer {
+    padding: 56px 0 55px 0;
+    background-color: #34547A;
+    &__wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    &__title {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 13px;
+        line-height: 21px;
+        color: #FFFFFF;
+        & h3 {
+            margin: 0;
+            margin-bottom: 20px;
+            font-weight: 500;
+            font-size: 21px;
+            line-height: 25px;
+        }
+    }
+    &__icons a {
+        margin-left: 22px;
+
+    }
+}

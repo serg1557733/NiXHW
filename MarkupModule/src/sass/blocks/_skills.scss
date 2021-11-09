@@ -1,0 +1,51 @@
+.skills {
+    background: #E5E5E5;
+    padding: 102px 0;
+    &__wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    &__list {
+        text-align: left;
+        font-family: Roboto;
+        font-style: normal;
+        font-size: 16px;
+        line-height: 26px;
+        color: #727272;
+        padding-right: 150px;
+        & h4 {
+            margin: 0;
+            font-weight: 500;
+            font-size: 32px;
+            line-height: 37px;
+            color: #000000;
+            margin-bottom: 20px;
+        }
+        & span {
+            display: block;
+            margin-bottom: 20px;
+            padding-top: 30px;
+        }
+
+    }
+    &__progress {
+        width: 445px;
+        height: 4px;
+        border: 1px solid #000000;
+        &:after {
+            content:'';
+            display: block;
+            height: 3px;
+            width: 350px;
+            background-color: #34547A;
+        }
+    }
+    &__img {
+        img {
+            width: 100%;
+            height: auto;
+            vertical-align: top;
+        }
+    }
+}

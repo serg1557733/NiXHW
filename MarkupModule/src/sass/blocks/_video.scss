@@ -1,0 +1,39 @@
+.video {
+    background: #EEEFF1;
+    padding: 100px 0;
+    text-align: center;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 26px;
+    text-align: center;
+    color: #727272;
+    h2 {
+        font-weight: 500;
+        font-size: 32px;
+        line-height: 37px;
+        text-align: center;
+        color: #000000;
+    }
+    &__wrapper {
+        margin: 0 auto;
+        max-width:540px;
+        margin-bottom: 57px;
+    }
+    &__img {
+        position: relative;
+        max-width: 1110px;
+        & img {
+            vertical-align: top;
+            max-width: 100%;
+            height: auto;
+        }
+    }
+    &__play {
+        position: absolute;
+        top:50%;
+        left:50%;
+        transform: translate(-50%, -50%);
+    }
+}

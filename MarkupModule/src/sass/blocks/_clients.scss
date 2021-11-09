@@ -1,0 +1,14 @@
+.clients {
+    padding: 72px 0 100px 0;
+    &__wrapper {
+        min-height: 120px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    &__img {
+        vertical-align: top;
+        max-width: 255px;
+        height: auto;
+    }
+}

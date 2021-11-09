@@ -1,0 +1,66 @@
+.form {
+    padding: 100px 0 100px 0;
+    background-color: #EEEFF1;
+    &__title {
+        margin: 0 auto;
+        margin-bottom: 65px;
+        max-width: 540px;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 26px;
+        text-align: center;
+        color: #727272;
+        & p {
+            margin: 0;
+        }
+        & h3 {
+            font-weight: 700;
+            font-size: 32px;
+            line-height: 37px;
+            text-align: center;
+            color: #000000;
+            margin: 0; 
+            margin-bottom: 50px;
+        }
+    }
+    &__inputs {
+        margin: 0 auto;
+        margin-bottom: 20px;
+        input {
+            width: 255px;
+            height: 50px;
+            padding: 17px 0 18px 20px;
+            border: none;
+            &:first-child {
+                margin-right: 20px;
+            }
+        }
+    }
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+        & textarea {
+            padding: 17px 0 0 20px;
+            resize: none;
+            border:none;
+            width: 540px; 
+            height: 175px;
+            margin: 0 auto;
+            margin-bottom: 50px;
+        }
+        & button {
+            margin: 0 auto;
+            width: 190px;
+            height: 55px;
+            font-size: 14px;
+            line-height: 23px;
+            text-align: center;
+            letter-spacing: 0.15em;
+            color: #FFFFFF;
+            background: #34547A;
+        }
+    }
+
+}

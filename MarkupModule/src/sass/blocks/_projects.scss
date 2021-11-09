@@ -1,0 +1,33 @@
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;    
+}
+.col {
+    max-width: 25%;
+    padding: 1px;  
+}
+.projects {
+    &__item{
+        position: relative;
+        img {
+            vertical-align: top;
+            width: 100%;
+            min-height: auto;
+        }
+        &:after {
+            content:'';
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:url('../img/view.png') center no-repeat,linear-gradient(0deg, rgba(52, 84, 122, 0.8), rgba(52, 84, 122, 0.8));
+
+        }
+        &:hover::after {
+            position: absolute;
+            cursor: pointer;
+        }
+    }    
+}
