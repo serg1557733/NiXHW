@@ -69,6 +69,62 @@ let name = prompt("Ваше имя", ""),
     surname = prompt("Укажите фамилию", ""),
     patronymic = prompt("Ваше отчество", "");
 
-alert(` Привет ${name} ${patronymic} ${surname} `);
+    if(name && surname && patronymic) {
+      alert(` Привет ${name} ${patronymic} ${surname} `);  
+    } else {
+        alert ('You need to enter your data');
+    }
+
 
 //default: or
+
+let userName = prompt("Enter your name", "") || 'Ivanov';
+
+console.log(userName);
+
+
+//default: if
+
+let userName1 = prompt("Enter your name", "");
+
+if (!userName1) {
+    userName1 = 'Petrov';
+}
+
+console.log(userName1);
+
+//login and password
+/* Напишите код, который спрашивает логин, проверяет его на верность, в случае если логин верен, просит ввести пароль и проверяет его. В случае несовпадения логина или пароля выводить alert с текстом ошибки. В случае успешного логина - alert с поздравлением. Правильные логин: admin и пароль: qwerty. Используйте вложенные if и else. */
+
+let login = prompt('Enter login', '');
+
+if (login === 'admin') {
+    let pass = prompt('Enter password', '');
+    if (pass === 'qwerty') {
+        alert('Congratulations !');
+    } else {
+        alert('incorect password');
+    }
+} else {
+    alert('You enter wrong login');
+}
+
+
+//currency calc
+
+/* Калькулятор обмена валют. Первый prompt спрашивает валюту: "usd" или "eur". С помощью switch установите обменный курс для валюты, выбранной пользователем, после чего спросите величину и переведите её из гривны в выбранную на первом prompt валюту. Выведите результат в alert() */
+
+let currency = prompt('enter currency');
+
+switch (currency){
+    case 'usd': 
+        let sum = prompt('Enter curency summ');
+            alert(`You usd summ : ${sum*26.3}`);
+            break;
+    case 'eur': 
+        let sumE = prompt('Enter curency summ');
+            alert(`You usd summ : ${sumE*30.3}`);
+            break;
+    
+    default: alert('enter currency name');
+}
