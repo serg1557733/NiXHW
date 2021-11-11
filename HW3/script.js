@@ -78,9 +78,9 @@ let name = prompt("Ваше имя", ""),
 
 //default: or
 
-let userName = prompt("Enter your name", "") || 'Ivanov';
+/* let userName = prompt("Enter your name", "") || 'Ivanov';
 
-console.log(userName);
+console.log(userName); */
 
 
 //default: if
@@ -114,17 +114,92 @@ if (login === 'admin') {
 
 /* Калькулятор обмена валют. Первый prompt спрашивает валюту: "usd" или "eur". С помощью switch установите обменный курс для валюты, выбранной пользователем, после чего спросите величину и переведите её из гривны в выбранную на первом prompt валюту. Выведите результат в alert() */
 
-let currency = prompt('enter currency');
+/* let currency = prompt('enter currency');
 
 switch (currency){
     case 'usd': 
         let sum = prompt('Enter curency summ');
-            alert(`You usd summ : ${sum*26.3}`);
+            alert(`You usd summ : ${sum *26.3} uah`);
             break;
     case 'eur': 
         let sumE = prompt('Enter curency summ');
-            alert(`You usd summ : ${sumE*30.3}`);
+            alert(`You usd summ : ${sumE * 30.3} uah`);
             break;
     
     default: alert('enter currency name');
+} */
+
+//currency calc: improved
+
+/* let currency = prompt('enter currency');
+
+switch (currency.toLocaleLowerCase()){
+    case 'usd': 
+        let sum = prompt('Enter curency summ');
+        let rate = confirm('You want to buy?');
+        rate ? alert(`You usd summ : ${sum*26.55} uah`): alert(`You usd summ : ${sum*26.3} uah`);
+            break;
+    case 'eur': 
+        let sumE = prompt('Enter curency summ');
+        let rateE = confirm('You want to buy?');
+        rateE ? alert(`You usd summ : ${sumE*30.55} uah`): alert(`You usd summ : ${sumE*30.3} uah`);  
+            break;
+    
+    default: alert('enter currency name');
+} */
+
+//currency calc: if
+
+let currency = prompt('enter currency');
+
+if (currency.toLocaleLowerCase() === 'usd'){
+    let sum = prompt('Enter curency summ');
+    let rate = confirm('You want to buy?');
+    rate ? alert(`You usd summ : ${sum*26.55} uah`): alert(`You usd summ : ${sum*26.3} uah`);
+} else if (currency.toLocaleLowerCase() === 'eur') {
+    let sumE = prompt('Enter curency summ');
+    let rateE = confirm('You want to buy?');
+    rateE ? alert(`You usd summ : ${sumE*30.55} uah`): alert(`You usd summ : ${sumE*30.3} uah`); 
+} else {
+    alert('Enter correct currency name')
 }
+/* 
+scissors
+Сделайте игру "камень-ножницы-бумага". Пользователь вводит свой вариант через prompt, программа генерирует свой вариант через Math.random() и выводит через alert. Следующий alert выводит имя победителя или "ничья" */
+
+let userAnswer = prompt('Enter you choise');
+
+let appAnswer = Math.random() * 100;
+console.log(appAnswer);
+if (appAnswer > 33 && appAnswer < 66){
+    appAnswer = 'камень';
+    alert(appAnswer);
+    if (appAnswer === userAnswer) {
+        alert(' ничья  ');
+    } else if (userAnswer === 'бумага') {
+        alert('you winner');
+    } else if (userAnswer === 'ножницы'){
+        alert('you looser');
+    }
+} else if (appAnswer < 33) {
+    appAnswer = 'бумага';
+    alert(appAnswer);
+    if (appAnswer === userAnswer) {
+        alert(' ничья  ');
+    } else if (userAnswer === 'камень') {
+        alert('you looser');
+    } else if (userAnswer === 'ножницы'){
+        alert('you winner');
+    }
+} else if (appAnswer > 66) {
+    appAnswer = 'ножницы';
+    alert(appAnswer);
+    if (appAnswer === userAnswer) {
+        alert(' ничья  ');
+    } else if (userAnswer === 'камень') {
+        alert('you looser');
+    } else if (userAnswer === 'бумага'){
+        alert('you winner');
+    }
+}
+
