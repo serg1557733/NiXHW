@@ -21,6 +21,8 @@ rate ? alert(`You usd summ : ${sum * currencyRate[currency +'B']} uah`): alert(`
 alert('Enter correct currency name')
 }  */
 
+
+
 //second 
 
 
@@ -84,3 +86,125 @@ fetch(`'https://open.er-api.com/v6/latest/' + currency.toUpperCase()`).then(res 
                alert('Enter correct currency name')
            }
         }) */
+
+
+/* Дополнительное задание
+Слепить все задания в один текст, таким образом что бы вначале происходил ввод названия задания, каждое задание при этом находится в отдельном case оператора switch. Например case "currency calc" для калькулятора обмена валют. */
+
+
+/* 
+let taskTitle = prompt('Enter task title: currencyCalc, scissors or sizeCalc');
+
+switch(taskTitle){
+    case 'currencyCalc': currencyCalc();
+                    break;
+    case 'scissors': scissors();
+                    break;    
+    case 'sizeCalc': sizeCalc();
+                    break;                
+}
+
+
+function currencyCalc() {
+    let currency = prompt('enter currency');
+        if (currency.toLocaleLowerCase() === 'usd'){
+            let sum = prompt('Enter curency summ');
+            let rate = confirm('You want to buy?');
+            rate ? alert(`You usd summ : ${sum*26.55} uah`): alert(`You usd summ : ${sum*26.3} uah`);
+        } else if (currency.toLocaleLowerCase() === 'eur') {
+            let sumE = prompt('Enter curency summ');
+            let rateE = confirm('You want to buy?');
+            rateE ? alert(`You usd summ : ${sumE*30.55} uah`): alert(`You usd summ : ${sumE*30.3} uah`); 
+        } else {
+            alert('Enter correct currency name')
+        }
+}
+
+function scissors() {
+    let userAnswer = prompt('Enter you choise');
+
+    let appAnswer = Math.random() * 100;
+ 
+    if (appAnswer > 33 && appAnswer < 66){
+        appAnswer = 'камень';
+        alert(appAnswer);
+        if (appAnswer === userAnswer) {
+            alert(' ничья  ');
+        } else if (userAnswer === 'бумага') {
+            alert('you winner');
+        } else if (userAnswer === 'ножницы'){
+            alert('you looser');
+        }
+    } else if (appAnswer < 33) {
+        appAnswer = 'бумага';
+        alert(appAnswer);
+        if (appAnswer === userAnswer) {
+            alert(' ничья  ');
+        } else if (userAnswer === 'камень') {
+            alert('you looser');
+        } else if (userAnswer === 'ножницы'){
+            alert('you winner');
+        }
+    } else if (appAnswer > 66) {
+        appAnswer = 'ножницы';
+        alert(appAnswer);
+        if (appAnswer === userAnswer) {
+            alert(' ничья  ');
+        } else if (userAnswer === 'камень') {
+            alert('you looser');
+        } else if (userAnswer === 'бумага'){
+            alert('you winner');
+        }
+    }
+    
+}
+
+
+function sizeCalc() {
+    
+let userSize = +prompt('Enter you waist coverage', '');
+
+switch (true){
+    case userSize > 63 && userSize < 65: 
+            alert(`${userSize}  - XXS `);
+            break;
+    case userSize > 66 && userSize < 69: 
+            alert(`${userSize}  - XS `);
+            break;
+    case userSize > 70 && userSize < 74: 
+            alert(`${userSize}  - S `);
+            break;
+    case userSize > 79 && userSize < 83: 
+            alert(`${userSize}  - L`);
+            break;   
+    case userSize > 84 && userSize < 89: 
+            alert(`${userSize}  - XL `);
+            break; 
+    case  userSize > 90 && userSize < 94: 
+            alert(`${userSize}  - XXL `);
+            break;   
+    case  userSize > 95 && userSize < 97: 
+            alert(`${userSize}  - XXXL `);
+            break;                 
+    
+    default: alert('maybe stop eating');
+}
+    
+} */
+
+
+
+
+/* Сделайте игру "камень-ножницы-бумага", как описано выше, 
+пользуясь логическими операциями (&&, ||, !), 
+не используя if и switch. Задание должно быть решено одним выражением */
+
+
+
+let userAnswer = prompt('Enter you choise');
+
+let appAnswer = Math.random() * 100;
+
+(appAnswer > 33 && appAnswer < 66) ? appAnswer = 'камень' : (appAnswer < 33)? appAnswer = 'бумага':appAnswer = 'ножницы'; 
+
+ (appAnswer === userAnswer) ?  alert(' ничья  '): (userAnswer === 'бумага' && appAnswer === 'камень') ?  alert('you winner'): (userAnswer === 'бумага' && appAnswer === 'ножницы') ? alert('you looser') :(userAnswer === 'камень' && appAnswer === 'бумага')? alert('you looser') : (userAnswer === 'камень' && appAnswer === 'ножницы')? alert('you winner') : (userAnswer === 'ножницы' && appAnswer === 'бумага')? alert('you winner'):(userAnswer === 'ножницы' && appAnswer === 'камень')?alert('you looser') :alert('you winner') ;
