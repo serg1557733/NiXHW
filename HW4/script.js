@@ -60,7 +60,7 @@ getKey(c, 'fatherName'); */
 
 //array of persons
 
-let persons = [a, b, c, {name : 'oleg', surname: "Pavlov",}];
+let persons = [a, b, c, {name : 'oleg', surname: "Pavlov"}];
 
 console.log(persons);
 
@@ -99,3 +99,35 @@ for (let objct of persons) {
       
 }
 console.log(a, b, c);
+
+//serialize   Создайте JSON-строку из persons
+
+let jsonFromArr = JSON.stringify(persons);
+
+console.log(jsonFromArr);
+
+//deserialize Создайте ассоциативный массив с одной персоной из JSON-строки. Добавьте её в persons
+
+
+let objFromJson =JSON.parse(jsonFromArr)[0];
+
+console.log(objFromJson);
+persons.push(objFromJson);
+
+console.log(persons);
+
+//HTML
+
+let str = "<table border='1'>"
+
+for (let i in persons) { 
+    str += `<tr><td>${persons[i].name}</td>
+    <td>${persons[i].surname}</td></tr>`;
+}
+str += "</table>"
+
+document.write(str)
+
+//HTML optional fields
+
+
