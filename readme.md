@@ -8,3 +8,5 @@ test task JS   [https://serg1557733.github.io/ ](http://)
 
 
 Js functions and classes for creating cards, sliders and tabs http://food.serg15577330.fe.a-level.com.ua/  
+
+test build react - http://react.serg15577330.fe.a-level.com.ua/

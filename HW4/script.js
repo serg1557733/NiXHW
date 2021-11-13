@@ -114,11 +114,11 @@ let objFromJson =JSON.parse(jsonFromArr)[0];
 console.log(objFromJson);
 persons.push(objFromJson);
 
-console.log(persons);
+//console.log(persons);
 
 //HTML
 
-let str = "<table border='1'>"
+/* let str = "<table border='1'>"
 
 for (let i in persons) { 
     str += `<tr><td>${persons[i].name}</td>
@@ -126,8 +126,81 @@ for (let i in persons) {
 }
 str += "</table>"
 
-document.write(str)
+document.write(str) */
 
 //HTML optional fields
+/* 
+Сделайте цикл, который выводит весь массив persons, в форме HTML-таблицы. 
+Имя и Фамилия, а так же другие поля при наличии. Колонки: поля, строки таблицы - персоны. */
 
+let str1 = "<table border='1'>"
 
+for (let i in persons) {  
+    str1 += `<tr>`;
+
+    if (Object.keys(persons[i])[i]){
+       str1 += `<td>${Object.keys(persons[i])[i]}</td>` 
+        for (let k of persons){
+            if (Object.values(k)[i]){
+              str1 += `<td>${Object.values(k)[i]}</td>`  
+            } 
+    } 
+}    
+    str1 +=  `</tr>`;
+}
+
+str1 += "</table>"
+
+document.write(str1)
+
+//HTML tr color
+
+//Задание на синий пояс.
+
+let body = {
+    tagName: 'body',
+    children: [{
+            tagName: 'div',
+            children: [{
+                    tagNAme: 'span',
+                    children: 'Enter a data please:'
+                },
+                {
+                    tagNAme: 'br'
+                },
+                {
+                    tagNAme: 'input',
+                    attributs: {
+                        type: 'text',
+                        id: 'text'
+                    }
+                },
+                {
+                    tagNAme: 'input',
+                    attributs: {
+                        type: 'text',
+                        id: 'surname'
+                    }
+                }
+            ]},
+            {
+                tagName: 'div',
+                children: [{
+                        tagNAme: 'button',
+                        children: 'OK',
+                        attributs: {
+                            id: 'ok'
+                        }
+                    },
+                    {
+                        tagNAme: 'button',
+                        children: 'Cancel',
+                        attributs: {
+                            id: 'cancel'
+                        }
+                    }]
+
+            }
+
+        ]  
+    }
