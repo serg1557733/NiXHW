@@ -132,29 +132,28 @@ document.write(str) */
 /* 
 Сделайте цикл, который выводит весь массив persons, в форме HTML-таблицы. 
 Имя и Фамилия, а так же другие поля при наличии. Колонки: поля, строки таблицы - персоны. */
+let str = "<table border='1'>";
 
-let str1 = "<table border='1'>"
-
-for (let i in persons) {  
-    str1 += `<tr>`;
-
-    if (Object.keys(persons[i])[i]){
-       str1 += `<td>${Object.keys(persons[i])[i]}</td>` 
-        for (let k of persons){
+for (let i in persons) {
+    if (i%2){
+    str += `<tr>`;    
+    } else {
+        str += `<tr class='tr'>`;   //HTML tr color
+    }
+    str += `<td>${Object.keys(persons[i])[i]}</td>` 
+        for (let k of Object.values(persons)){
             if (Object.values(k)[i]){
-              str1 += `<td>${Object.values(k)[i]}</td>`  
-            } 
-    } 
-}    
-    str1 +=  `</tr>`;
+                str += `<td>${Object.values(k)[i]}</td>`;     
+            } else { 
+                str += `<td>****${persons[i][k]}****</td>`;
+              
+            }         
+    }
+    str += `</tr>`;
 }
+str += "</table>";
 
-str1 += "</table>"
-
-document.write(str1)
-
-//HTML tr color
-
+document.write(str);
 //Задание на синий пояс.
 
 let body = {
@@ -204,3 +203,17 @@ let body = {
 
         ]  
     }
+
+    function htmlConstructor (obj) {
+        let {tagName, children,attributs,id} = obj;
+        if (children){
+            htmlConstructor(obj);
+            
+        } else {
+            let root = document.createElement(tagName);
+            root.appendChild(children);
+        }
+        
+    }
+
+    htmlConstructor (body);
