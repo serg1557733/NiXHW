@@ -157,7 +157,7 @@ document.write(str);
 //Задание на синий пояс.
 
 let body = {
-    tagName: 'body',
+    tagName: 'div',
     children: [{
             tagName: 'div',
             children: [{
@@ -198,22 +198,137 @@ let body = {
                             id: 'cancel'
                         }
                     }]
-
             }
 
         ]  
     }
 
-    function htmlConstructor (obj) {
-        let {tagName, children,attributs,id} = obj;
-        if (children){
-            htmlConstructor(obj);
-            
-        } else {
-            let root = document.createElement(tagName);
-            root.appendChild(children);
-        }
-        
-    }
 
-    htmlConstructor (body);
+    let someTree = {
+        tagName: "table", //html tag
+        subTags: [ //вложенные тэги
+            {
+                        tagName: "tr",
+                        subTags: [
+                            {
+                                tagName: "td",
+                                text: "some text",
+                            },
+                            {
+                                tagName: "td",
+                                text: "some text 2",
+                            }
+                        ]
+            }
+        ],
+        attrs: 
+        {
+            border: 1,
+        },
+    }
+//console.log(body);
+
+function htmlConstructor (obj) {
+    let {tagName, children, attributs, id} = obj;
+    let body;
+    for (let key in obj){
+         if (typeof obj[key] === 'object') { 
+             
+            //  console.log(children); 
+               /*  for (let k of children) {
+                    let {tagName, children, attributs, id} = k;
+                        if (typeof children === 'object'){
+                        console.log(children); 
+                        console.log(k); 
+                            for (let n of children) {
+                                   console.log(n); 
+                                   let {tagName, children, attributs, id} = n;
+                                   document.createElement(tagName);
+                                }
+                        }else {
+                        console.log(tagName); 
+
+                        body += body.appendChild(document.createElement(tagName));
+                        console.log(body);
+                        }
+                } */
+           } else {
+              console.log(tagName); 
+              body = document.createElement(tagName);
+    
+
+           }
+    }
+    console.log(body);
+    document.write(body);
+};       
+    
+
+ htmlConstructor (body);
+ htmlConstructor (someTree);
+
+ //destruct array
+
+ let arr = [1,2,3,4,5, "a", "b", "c"];
+
+ let [,even1,,even2] = arr;
+ let [odd1, ,odd2, ,odd3] = arr;
+ let [,,,,,...arrLeters] = arr;
+
+
+ console.log(even2,even1);
+ console.log(odd1,odd2,odd3);
+ console.log(arrLeters);
+
+ //destruct string
+ let arr1 = [1, "abc"];
+
+let [number] = arr1;
+let [s1,s2,s3] = arr1[1];
+
+console.log(number);
+console.log(s1,s2,s3);
+
+ //destruct 2
+
+ let obj7 = {name: 'Ivan',
+           surname: 'Petrov',
+           children: [{name: 'Maria'}, {name: 'Nikolay'}]};
+
+ let {name: name1} = obj7.children[0];   
+ let {name: name2} = obj7.children[1];    
+ console.log(name2);   
+ 
+ //destruct 3
+
+ let arr99 = [1,2,3,4,5,6,7,10];
+
+ let length = arr99.length;
+ let [a1, b1] = arr99;
+ 
+ console.log(length);
+ console.log(a1);
+ console.log(b1);
+
+//Задание на черный пояс
+/* Сделать предыдущее задание на черный пояс в упрощенном виде: не использовать четырехмерный массив для хранения истории, а использовать ассоциативный массив: Например, если пользователь ввел 1212 за последние четыре хода, то мы ищем то, что было введено последний раз после такой последовательности:
+var history      = "1212"
+var predictValue = predictArray[history] // в predictValue то, что ввел последний раз пользователь после нажатий 1212
+var newValue     = prompt("введите 1 или 2","");
+predictArray[history] = newValue         //сохраняем новый ввод */
+//сдвигаем историю
+/*  Как это работает?
+Гадалка хранит историю ввода (4 последних числа) пользователя в массиве history. 
+Каждое следующее число добавляется с помощью push в конец массива, при этом первое число из массива (самое старое) удаляется с помощью shift.
+Гадалка запоминает что пользователь ввёл в предыдущий раз после такой истории. 
+То есть, если пользователь вводил 0,1,0,1,0, то логично предположить, что с историей 0,1,0,1 следующим вариантом будет 0. Для хранения используется 4х мерный массив, индексами которого является история:
+predictArray[history[0]][history[1]][history[2]][history[3]] равно тому,
+ что пользователь ввёл после истории в предыдущий раз.
+Алгоритм:
+Изначально predictArray содержит, например, -1, или иные значения, которые отличаются от пользовательского ввода. История пусть состоит из единиц: history = [1,1,1,1];, Т. е. считается что пользователь нажимал 1 четыре ряда подряд. Пока мы не можем предсказать, так как в массиве еще не сохранилось то, что вводил пользователь, мы используем Math.random в качестве предсказания, и записываем ввод пользователя в массив predictArray, добавляя новые значения в history, и сдвигая его. Т. е. если пользователь ввел 0, то:
+predictArray[1][1][1][1] = 0; //1,1,1,1 - история, 0 - новое значение
+history = [1,1,1,0]        //удаляем старую единицу из истории и добавляем введенный только что 0
+Для предсказания следующего достаем значение массива predictArray[1,1,1,0], а после ввода опять записываем туда то, что ввёл пользователь (пусть 1):
+predictArray[1][1][1][0] = 1; //1,1,1,0 - история, 1 - новое значение
+history = [1,1,0,1]        //удаляем старую единицу из истории и добавляем введенный только что 1
+Таким образом в predictArray накапливаются знания о том, что вводит пользователь после определенной истории чисел. */
