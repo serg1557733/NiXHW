@@ -131,9 +131,10 @@ document.write(str) */
 //HTML optional fields
 /* 
 Сделайте цикл, который выводит весь массив persons, в форме HTML-таблицы. 
-Имя и Фамилия, а так же другие поля при наличии. Колонки: поля, строки таблицы - персоны. */
+Имя и Фамилия, а так же другие поля при наличии. Колонки: строки таблицы поля, - персоны. */
 let str = "<table border='1'>";
 
+//th name surname
 for (let i in persons) {
     if (i%2){
     str += `<tr>`;    
@@ -201,15 +202,15 @@ let body = {
             }
 
         ]  
-    }
+}
 
 
-    let someTree = {
-        tagName: "table", //html tag
-        subTags: [ //вложенные тэги
+let someTree = {
+        tagName: "table", 
+        children: [ 
             {
                         tagName: "tr",
-                        subTags: [
+                        children: [
                             {
                                 tagName: "td",
                                 text: "some text",
@@ -221,50 +222,40 @@ let body = {
                         ]
             }
         ],
-        attrs: 
+        attributs: 
         {
             border: 1,
         },
-    }
+}
 //console.log(body);
 
 function htmlConstructor (obj) {
-    let {tagName, children, attributs, id} = obj;
-    let body;
-    for (let key in obj){
-         if (typeof obj[key] === 'object') { 
-             
-            //  console.log(children); 
-               /*  for (let k of children) {
-                    let {tagName, children, attributs, id} = k;
-                        if (typeof children === 'object'){
-                        console.log(children); 
-                        console.log(k); 
-                            for (let n of children) {
-                                   console.log(n); 
-                                   let {tagName, children, attributs, id} = n;
-                                   document.createElement(tagName);
+    let {tagName, children, attributs, text} = obj;
+    let  body = `<${tagName} ${Object.keys(attributs)}=${Object.values(attributs)}>`; 
+    body = `<${tagName}>`;
+    if (children) { 
+        for (let key of children){
+            let {tagName, children, attributs, text} = key;
+            body += `<${tagName}>`;
+           //htmlConstructor (obj)                      
+                                if (children) { 
+                                for (let key of children){
+                                    let {tagName, children, attributs, text} = key;
+                                    body += `<${tagName}>`;
+                                    body +=`${text}`
+                                    body +=  `</${tagName}>`;
                                 }
-                        }else {
-                        console.log(tagName); 
-
-                        body += body.appendChild(document.createElement(tagName));
-                        console.log(body);
-                        }
-                } */
-           } else {
-              console.log(tagName); 
-              body = document.createElement(tagName);
-    
-
-           }
-    }
+                            }
+            body +=  `</${tagName}>`
+        }
+    } 
+    body +=`</${tagName}>`    
     console.log(body);
     document.write(body);
 };       
     
 
- htmlConstructor (body);
+ //htmlConstructor (body);
  htmlConstructor (someTree);
 
  //destruct array
