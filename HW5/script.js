@@ -207,6 +207,7 @@ function chessDesc(width, height) {
 }
 chessDesc(15, 30);
 
-//cubes
+//cubes Сформируйте массив из N элементов, содержащий в себе кубы индексов, т. е:
+
 
 
