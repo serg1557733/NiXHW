@@ -1,0 +1,20 @@
+*, html {
+    margin: 0;
+    padding: 0;
+}
+.container {
+    position: relative;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 50px;
+}
+td {
+    border-style: ridge;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    vertical-align: middle;
+ }
+ tr:nth-child(2n + 1) {
+    background-color: rgb(223, 227, 235);
+ }
