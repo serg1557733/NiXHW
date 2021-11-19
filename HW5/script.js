@@ -167,16 +167,16 @@ console.log(sum);
 //chess one line
 //Сформировать строку " # # # # # " с помощью цикла for. Длина строки может быть четной и нечетной, и указывается в одном месте в коде.
 
-function string(length) {
+/* function string(length) {
     let str = '';
     for(let i = 0; i < length; i++)
     str +=' #'
     document.write(str)
 }
-string(30);
+string(30); */
 
 //Сформировать строку c помощью вложенных циклов. Для перевода строки используйте \n.
-let strNum = '';
+/* let strNum = '';
 for (let i =0; i < 10; i++){
     strNum +='\n <br>';
     
@@ -187,10 +187,10 @@ for (let i =0; i < 10; i++){
 }
 
 document.write(strNum);
-console.log(strNum);
+console.log(strNum); */
 //chess
 
-function chessDesc(width, height) {
+/* function chessDesc(width, height) {
     let desk = '';
     for (let i = 0; i < width; i++){
         desk +='<br>';
@@ -205,7 +205,7 @@ function chessDesc(width, height) {
     document.write(desk);
     
 }
-chessDesc(15, 30);
+chessDesc(15, 30); */
 
 //cubes Сформируйте массив из N элементов, содержащий в себе кубы индексов, т. е:
 
@@ -244,7 +244,7 @@ let arr = [];
  */
 
 
-function tableFromArray(arr){
+/* function tableFromArray(arr){
     let str = '<table>';
 
         for (let i = 1; i < arr.length; i++) {
@@ -259,13 +259,14 @@ function tableFromArray(arr){
         document.write(str);
 }
 
-tableFromArray(arr);
+tableFromArray(arr); */
 
 
 
 /* Задание на синий пояс: Треугольник
 Сформировать следующую строку - треугольник: */
-/* .....#.....
+/* 
+.....#.....
 ....###....
 ...#####...
 ..#######..
@@ -273,18 +274,47 @@ tableFromArray(arr);
 ########### */
 
 
-let triangle = '';
-    for (let i = 0; i < 12; i++){    
-        triangle += '.'
-         if( i == 12/2){
-            triangle += `#`;  
+/* function triangle(height){  
+    for (let i = 0; i < height; i++) {
+        for (let k = height; k > i + 1; k--) {  //rendering from center to left
+            document.write('.')
         }
-       /*  for (let k = 0; k < 11; k++){
+        for (let j = 0; j < i + 1; j++) { // render center
+            document.write('#')
             
-        } */ 
+        }
+        for (let k = height; k > i + 1 ; k--) { //rendering from center to rigth
+            document.write('.')
+        }
+        document.write("<br>")
+    }
+}
+
+triangle(6);
+     */
+//Задание на черный пояс: Электронная гадалка
+
+
+let predictArray = [];
+let history = [1,1,1,0];  
+
+for(let i = 0; i < 4; i++){
+    predictArray[i] = history;
+    //console.log(predictArray);
+      for(let k = 0; k < 4; k++){
+        history[k] = [];  
+        /* for(let n = 0; n < 4; n++){
+        predictArray[i][k][n] = [];
+            for(let j = 0; j < 4; j++){
+                predictArray[i][k][n][j] = -1;
+            } 
+        } */
     } 
-    document.write(triangle);
+}
+
+console.log(predictArray);
+history = [0,0,0,0]; 
 
 
-    //Задание на черный пояс: Электронная гадалка
 
+console.log(predictArray);
