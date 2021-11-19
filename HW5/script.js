@@ -244,7 +244,7 @@ let arr = [];
  */
 
 
-/* function tableFromArray(arr){
+function tableFromArray(arr){
     let str = '<table>';
 
         for (let i = 1; i < arr.length; i++) {
@@ -259,7 +259,7 @@ let arr = [];
         document.write(str);
 }
 
-tableFromArray(arr); */
+tableFromArray(arr);
 
 
 
@@ -274,7 +274,7 @@ tableFromArray(arr); */
 ########### */
 
 
-/* function triangle(height){  
+function triangle(height){  
     for (let i = 0; i < height; i++) {
         for (let k = height; k > i + 1; k--) {  //rendering from center to left
             document.write('.')
@@ -291,12 +291,16 @@ tableFromArray(arr); */
 }
 
 triangle(6);
-     */
+    
 //Задание на черный пояс: Электронная гадалка
-
-
 let predictArray = [];
 let history = [1,1,1,0];  
+console.log(history[3]);
+
+let userAnswer = +prompt('enter your number');
+history.shift();
+history.push(userAnswer);
+console.log(history);
 
 for(let i = 0; i < 4; i++){
     predictArray[i] = history;
@@ -311,10 +315,5 @@ for(let i = 0; i < 4; i++){
         } */
     } 
 }
-
-console.log(predictArray);
-history = [0,0,0,0]; 
-
-
 
 console.log(predictArray);
