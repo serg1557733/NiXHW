@@ -284,3 +284,7 @@ let triangle = '';
         } */ 
     } 
     document.write(triangle);
+
+
+    //Задание на черный пояс: Электронная гадалка
+
