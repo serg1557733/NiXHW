@@ -183,24 +183,22 @@ let someTree = {
 
 function htmlRecConstructor (obj) {   
     
-         let {tagName, children, attrs, text} = obj;
-         let body =`<${tagName}>`; 
+    let {tagName, children, attrs, text} = obj;
+    let body =`<${tagName}>`; 
         if (typeof children ==="object"){
           for (let tag of children){
-             console.log(tag); 
+            // console.log(tag); 
              let  {tagName, children, attrs, text} = tag;
              body +=`<${tagName}>`; 
-             
              htmlRecConstructor(tag); 
-         body +=`<${tagName}>`;     
-         } 
-        }  else body +=`<${tagName}>`;  
-          body.innerText +=`<${text}>`; 
-       
-         
-console.log(body);  
-   document.write(body); 
-  
+             body +=`${text}`;
+             body +=`<${tagName}>`;
+            }
+        } 
+    body +=`<${tagName}>`; 
+            
+    document.write(body);  
+    console.log(body);  
 };  
 htmlRecConstructor(someTree);  
 //document.write(htmlRecConstructor(someTree));
