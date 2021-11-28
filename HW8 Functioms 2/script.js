@@ -181,24 +181,23 @@ let someTree = {
     },
 }
 
+let body= '';
 function htmlRecConstructor (obj) {   
-    
     let {tagName, children, attrs, text} = obj;
-    let body =`<${tagName}>`; 
-        if (typeof children ==="object"){
-          for (let tag of children){
-            // console.log(tag); 
-             let  {tagName, children, attrs, text} = tag;
-             body +=`<${tagName}>`; 
-             htmlRecConstructor(tag); 
-             body +=`${text}`;
-             body +=`<${tagName}>`;
-            }
-        } 
+    let atribute, value;
+    if (attrs){ 
+            atribute = Object.keys(attrs); 
+            value = Object.values(attrs);  
+    } else atribute = '';
+        body +=`<${tagName} ${atribute}=${value}>`;  
+        if (typeof children ==="object"){    
+        for (let tag of children){
+            htmlRecConstructor(tag);   
+            }  
+        } else body +=`${text}`;
     body +=`<${tagName}>`; 
-            
-    document.write(body);  
-    console.log(body);  
+    return body;
+      
 };  
 htmlRecConstructor(someTree);  
-//document.write(htmlRecConstructor(someTree));
+document.write(body); 

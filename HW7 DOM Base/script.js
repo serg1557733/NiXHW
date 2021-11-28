@@ -58,12 +58,13 @@ let td = document.querySelectorAll('td');
        item.style.backgroundColor = 'yellow'; 
        item.parentNode.style.backgroundColor = 'green';
       
-/*       if (td[i].cellIndex === e.target.cellIndex){
-        for (let i=0; i <0; i++ ){};
-           console.log(td[i])
-        
+       if (td[i].cellIndex === e.target.cellIndex){
+        for (let i = 0; i < td.length/10; i++ ){
+            console.log(td[i].cellIndex)
+        };
+           
           
-      }; */
+      }; 
        
     } 
 
