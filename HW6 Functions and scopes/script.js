@@ -116,5 +116,4 @@ let funcObj = {
 
                 }
 
-funcObj.a();
-funcObj.intrandom();
+//funcObj[prompt()];
