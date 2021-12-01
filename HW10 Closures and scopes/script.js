@@ -31,23 +31,28 @@ let timer3 = makeProfileTimer();
 //console.log('timer3')
 //console.log(timer3());
 
-/* makeSaver
-Напишите функцию makeSaver, которая: */
 
-//var saver = makeSaver(Math.random) //создает функцию-хранилище результата переданной в качестве параметра функции (Math.random 
-// в примере). На этом этапе Math.random НЕ вызывается
-//var value1 = saver()              //saver вызывает переданную в makeSaver функцию, запоминает результат и возвращает его
-//var value2 = saver()              //saver в дальнейшем просто хранит результат функции, и более НЕ вызывает переданную 
-//в makeSaver функцию;
-//value1 === value2                 // всегда true
-
-//var saver2 = makeSaver(() => console.log('saved function called') || [null, undefined, false, '', 0, Math.random()][Math.ceil(Math.random()//*6)])
-//var value3 = saver2()
-//var value4 = saver2()
-
-//value3 === value4 // тоже должно быть true
+// makeSaver
 
 
+function makeSaver(func){
+    let funcRes = func();
+    function saverFunc(){
+        return funcRes;
+    }
+    return saverFunc;
+}
+
+let saver = makeSaver(Math.random)
+//console.log(saver());
+//console.log(saver());
+//console.log(saver()); 
+
+
+var value1 = saver()              //saver вызывает переданную в makeSaver функцию, запоминает результат и возвращает его
+var value2 = saver()              //saver в дальнейшем просто хранит результат функции, и более НЕ вызывает переданную 
+//в makeSaver функцию;777
+//console.log(value1 === value2);                 // всегда true
 
 /* let namePrompt = prompt.bind(window, 'Как тебя зовут?')
 let nameSaver = makeSaver(namePrompt)
@@ -55,34 +60,34 @@ alert(`Привет! Prompt еще не было!`)
 alert(`Привет ${nameSaver()}. Только что запустился prompt, первый и последний раз`)
 alert(`Слушай, ${nameSaver()}, го пить пиво. Ведь prompt был только один раз`) */
 
-/* Таким образом makeSaver решает две задачи:
-Навсегда сохраняет результат функции. Это актуально, например, для Math.random.
-Действует лениво, то есть вызывает Math.random только тогда, когда результат действительно нужен. Если же по каким-то причинам значение не понадобится, то Math.random даже не будет вызван */
 
-function makeSaver(func){
-    let funcRes;
-    console.log(funcRes);
-    return function(){
-          return func;
+
+
+/* Final Countdown
+Напишите код, который будет делать обратный ежесекундный отсчёт в консоли, \
+используя console.log. 
+Используйте Self Invoked Function для создания замыкания и setTimeout для задержки вывода. 
+Результатом должно быть:
+   5 //пауза 1 секунда
+   4 //пауза 1 секунда
+   3 //пауза 1 секунда
+   2 //пауза 1 секунда
+   1 //пауза 1 секунда
+   "поехали!" */
+
+
+let counter = 5;
+function countdown() {
+    console.log(counter);
+    if (counter > 0) {
+    return (function decr(){
+        return counter--;    
+    })(); 
     }
-}
+     else if (counter===0){
+    counter = 'GOGOGO';
+    
+    } else clearInterval(int1);
+};   
 
-console.log(makeSaver());
-
-
-
-let saver = makeSaver(Math.random)
-
-
-console.log(saver);
-
-
-
-//console.log(saver());
-//console.log(saver());
-
-
-var value1 = saver()              //saver вызывает переданную в makeSaver функцию, запоминает результат и возвращает его
-var value2 = saver()              //saver в дальнейшем просто хранит результат функции, и более НЕ вызывает переданную 
-//в makeSaver функцию;
-//console.log(value1 === value2);                 // всегда true
+let int1 = setInterval(() => {countdown()}, 1000);
