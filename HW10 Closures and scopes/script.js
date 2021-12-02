@@ -12,10 +12,10 @@
 
 function makeProfileTimer() {
     let t0 = performance.now();
-        return function tn(){
-                let t1 = performance.now();
-                return ("Call took " + (t1 - t0) + " milliseconds.")
-        } 
+    return function tn() {
+        let t1 = performance.now();
+        return ("Call took " + (t1 - t0) + " milliseconds.")
+    }
 }
 
 
@@ -35,9 +35,10 @@ let timer3 = makeProfileTimer();
 // makeSaver
 
 
-function makeSaver(func){
+function makeSaver(func) {
     let funcRes = func();
-    function saverFunc(){
+
+    function saverFunc() {
         return funcRes;
     }
     return saverFunc;
@@ -49,8 +50,8 @@ let saver = makeSaver(Math.random)
 //console.log(saver()); 
 
 
-var value1 = saver()              //saver вызывает переданную в makeSaver функцию, запоминает результат и возвращает его
-var value2 = saver()              //saver в дальнейшем просто хранит результат функции, и более НЕ вызывает переданную 
+var value1 = saver() //saver вызывает переданную в makeSaver функцию, запоминает результат и возвращает его
+var value2 = saver() //saver в дальнейшем просто хранит результат функции, и более НЕ вызывает переданную 
 //в makeSaver функцию;777
 //console.log(value1 === value2);                 // всегда true
 
@@ -75,7 +76,30 @@ alert(`Слушай, ${nameSaver()}, го пить пиво. Ведь prompt б�
    1 //пауза 1 секунда
    "поехали!" */
 
+
+
+let counter = 5;
+
+function countdown() {
+    console.log(counter);
+    let int1 = setTimeout(() => {
+        countdown()
+    }, 1000);
+    if (counter > 0) {
+        return (function decr() {
+            return counter--;
+        })();
+    }
+    clearTimeout(int1)
+    if (counter === 0) {
+        console.log('GOGOGO');
+    }
+};
+countdown();
+
+
 /* 
+//cheeter
 let counter = 5;
 function countdown() {
     console.log(counter);
@@ -116,10 +140,12 @@ let someNumber = zeroPrompt("Введите число")              // выз�
 myBind((...params) => params.join(''), null, [undefined, 'b', undefined, undefined, 'e', 'f'])('a','c','d') === 'abcdef' */
 
 
-function myBind(func, funcThis, arr){
+function myBind(func, funcThis, arr) {
     let bindArray = arr;
     let funcRes = func.bind(funcThis, ...bindArray);
-    function retFunc(...params){
+
+    function retFunc(...params) {
+
         console.log(bindArray);
         return funcRes(...params);
     }
@@ -128,5 +154,12 @@ function myBind(func, funcThis, arr){
 
 
 console.log(myBind(Math.pow, Math, [undefined, 5]));
-console.log(myBind((...params) => params.join(''), null, [undefined, 'b', undefined, undefined, 'e', 'f'])('a','c','d'));
+console.log(myBind((...params) => params.join(''), null, [undefined, 'b', undefined, undefined, 'e', 'f'])('a', 'c', 'd'));
 
+
+/* console.log([undefined, 'b', undefined, undefined, 'e', 'f'].map((item, i) => {
+    if( item[i] ==='undefined') {
+        console.log(i);       
+         item[i] = ['a','c','d'][i]
+       }
+})) */
