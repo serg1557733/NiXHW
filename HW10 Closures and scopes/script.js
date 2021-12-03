@@ -79,7 +79,6 @@ alert(`Слушай, ${nameSaver()}, го пить пиво. Ведь prompt б�
 
 
 let counter = 5;
-
 function countdown() {
     console.log(counter);
     let int1 = setTimeout(() => {
@@ -95,11 +94,11 @@ function countdown() {
         console.log('GOGOGO');
     }
 };
-countdown();
+//countdown();
 
 
 /* 
-//cheeter
+//))cheeter
 let counter = 5;
 function countdown() {
     console.log(counter);
@@ -115,6 +114,8 @@ function countdown() {
 };   
 
 let int1 = setInterval(() => {countdown()}, 1000); */
+
+
 
 //myBind
 
@@ -141,12 +142,11 @@ myBind((...params) => params.join(''), null, [undefined, 'b', undefined, undefin
 
 
 function myBind(func, funcThis, arr) {
-    let bindArray = arr;
-    let funcRes = func.bind(funcThis, ...bindArray);
-
+    let funcRes = func.bind(...arr);
+    console.log(arr);
     function retFunc(...params) {
-
-        console.log(bindArray);
+        console.log(arr);
+        console.log(params);
         return funcRes(...params);
     }
     return retFunc;
@@ -157,9 +157,8 @@ console.log(myBind(Math.pow, Math, [undefined, 5]));
 console.log(myBind((...params) => params.join(''), null, [undefined, 'b', undefined, undefined, 'e', 'f'])('a', 'c', 'd'));
 
 
-/* console.log([undefined, 'b', undefined, undefined, 'e', 'f'].map((item, i) => {
-    if( item[i] ==='undefined') {
-        console.log(i);       
-         item[i] = ['a','c','d'][i]
-       }
-})) */
+
+
+
+
+  

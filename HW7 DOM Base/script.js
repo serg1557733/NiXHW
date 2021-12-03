@@ -5,18 +5,18 @@
 и innerText. Создайте таблицу, вложенные строки и ячейки в циклах.  */
 
 
- let root = document.querySelector('.root');
+let root = document.querySelector('.root');
 
-for (let i = 0; i < 10; i++){
+for (let i = 0; i < 10; i++) {
 
     let tr = document.createElement('tr');
-    
+
     root.append(tr);
-    
-    for (let k = 0; k < 10; k++){
+
+    for (let k = 0; k < 10; k++) {
 
         let td = document.createElement('td');
-        
+
         if (i === 0) {
             td.innerText = k;
             tr.append(td);
@@ -26,9 +26,9 @@ for (let i = 0; i < 10; i++){
         } else {
             td.innerText = i * k;
             tr.append(td);
-        }  
+        }
     }
-} 
+}
 
 /* Подсветить ячейку над которой находится курсор мыши.
  Используйте события mouseover и mouseout, 
@@ -52,27 +52,37 @@ let td = document.querySelectorAll('td');
 
 
 
- td.forEach((item, i) => {
+td.forEach((item, i) => {
     item.onmouseover = (e) => {
-        
-       item.style.backgroundColor = 'yellow'; 
-       item.parentNode.style.backgroundColor = 'green';
-      
-       if (td[i].cellIndex === e.target.cellIndex){
-        for (let i = 0; i < td.length/10; i++ ){
-            console.log(td[i].cellIndex)
-        };
-           
-          
-      }; 
-       
-    } 
+
+        item.style.backgroundColor = 'yellow';
+        item.parentNode.style.backgroundColor = 'green';
+        let trCollect = Array.from(item.parentElement.parentElement.children);
+        trCollect.forEach((el, i) => {
+            // console.log(el.children[i].cellIndex);
+            //console.log(item.cellIndex);
+            if (el.children[i].cellIndex === item.cellIndex) {
+                Array.from(el.parentElement.children).forEach(elem => elem.children[i].style.backgroundColor = 'red');
+            }
+        });
+    };
 
     item.onmouseout = () => {
         item.style.backgroundColor = '';
         item.parentNode.style.backgroundColor = '';
+        let trCollect = Array.from(item.parentElement.parentElement.children);
+        trCollect.forEach((el, i) => {
+            if (el.children[i].cellIndex === item.cellIndex) {
+                Array.from(el.parentElement.children).forEach(elem => elem.children[i].style.backgroundColor = '');
+            }
+
+        });
     }
 })
+
+
+
+
 
 //Calc + Calc Live 
 
@@ -106,7 +116,7 @@ checkLiter.addEventListener('change', () => {
     if (checkLiter.checked && fuel.value && way.value) {
         priceInput.style.display = 'none';
         calcMyConsumption(fuel.value, way.value);
-       
+
     } else {
         outer.textContent = `Заполните все формы`;
 
@@ -115,12 +125,12 @@ checkLiter.addEventListener('change', () => {
 
 
 checkUah.addEventListener('change', () => {
-    if (checkUah.checked && fuel.value && way.value ) {
+    if (checkUah.checked && fuel.value && way.value) {
         priceInput.style.display = 'block';
         price.value = '';
         outer.textContent = `Внесите цену`;
         price.addEventListener('input', () => calcMyConsumption(fuel.value, way.value, price));
-    
+
     } else {
         outer.textContent = `Заполните данные формы`;
 
@@ -128,7 +138,7 @@ checkUah.addEventListener('change', () => {
 })
 
 reset.addEventListener('click', () => {
-    fuel.value = ''; 
+    fuel.value = '';
     way.value = '';
     price.value = '';
     outer.textContent = '';
