@@ -88,6 +88,9 @@ function Control(el, {
     this.getValue = () => value
 }
 
+
+
+
 const audio = document.querySelector('audio');
 
 const red = new Control(root, {
