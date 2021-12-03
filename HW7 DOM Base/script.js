@@ -123,7 +123,7 @@ checkLiter.addEventListener('change', () => {
     }
 })
 
-
+// add event onchange 
 checkUah.addEventListener('change', () => {
     if (checkUah.checked && fuel.value && way.value) {
         priceInput.style.display = 'block';
