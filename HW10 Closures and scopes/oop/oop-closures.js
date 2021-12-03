@@ -32,16 +32,17 @@ function Password(parent = document.body, open = false){
         if (typeof this.onChange === 'function')
             this.onOpenChange(readProp);
         readProp = !readProp;
-        btn.innerText = readProp ? 'show' : 'hide' ;
+        btn.innerText = readProp ? 'show' : 'hide';
+        if (readProp){
+            console.log(input);
+           input.setAttribute('type','password')
+       } else input.setAttribute('type','text')
 
         }
 
-    
     this.getValue = () => value;
     this.getOpen = () => readProp;  
 }
-
-
 
 
  let p = new Password(root, true)
@@ -54,3 +55,26 @@ function Password(parent = document.body, open = false){
 
     p.setOpen(true)
     //console.log(p.getOpen()) 
+
+
+
+
+/* 
+    LoginForm
+С помощью предыдущего кода Password сделайте форму логина, кнопка в которой будет активна только если и login и пароль не пусты */
+/* 
+
+
+
+LoginForm Constructor
+оформите предыдущую задачу как функцию-конструктор. Продумайте и предусмотрите геттеры, сеттеры и колбэки. */
+
+
+
+
+
+
+/* Password Verify
+С помощью Password сделайте пару инпутов, которые проверяют введеный пароль (в двух полях ввода) на совпадение. Кнопка должна активизироваться при совпадающих паролях. При открытом пароле второе поле вводы должно пропадать с экрана Таким образом:
+Когда Password в скрытом режиме - появляется второй инпут (<input type='password'>) с паролем в скрытом режиме
+Когда Password в открытом режиме - второй инпут пропадат */
