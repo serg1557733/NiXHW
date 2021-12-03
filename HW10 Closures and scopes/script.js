@@ -79,6 +79,7 @@ alert(`Слушай, ${nameSaver()}, го пить пиво. Ведь prompt б�
 
 
 let counter = 5;
+
 function countdown() {
     console.log(counter);
     let int1 = setTimeout(() => {
@@ -122,11 +123,11 @@ let int1 = setInterval(() => {countdown()}, 1000); */
 function myBind(func, funcThis, arr) {
     return function retFunc(...params) {
         let count = 0;
-        for (let el in arr){
-            if(arr[el] === undefined) {
+        for (let el in arr) {
+            if (arr[el] === undefined) {
                 arr[el] = params[count];
                 count++;
-            } 
+            }
         }
         return func.apply(funcThis, arr);
     }
@@ -136,8 +137,8 @@ function myBind(func, funcThis, arr) {
 let pow5 = myBind(Math.pow, Math, [undefined, 5])
 console.log(pow5(2));
 console.log(myBind((...params) => params.join(''), null, [undefined, 'b', undefined, undefined, 'e', 'f'])('a', 'c', 'd'));
-let chessMin = myBind(Math.min, Math, [undefined, 4, undefined, 5,undefined, 8,undefined, 9])
-console.log(chessMin(-1,-5,3,15)) // вызывает Math.min(-1, 4, -5, 5, 3, 8, 15, 9), результат -5
+let chessMin = myBind(Math.min, Math, [undefined, 4, undefined, 5, undefined, 8, undefined, 9])
+console.log(chessMin(-1, -5, 3, 15)) // вызывает Math.min(-1, 4, -5, 5, 3, 8, 15, 9), результат -5
 
 //let zeroPrompt = myBind(prompt, window, [undefined, "0"]) // аналогично, только теперь задается "0" как текст по умолчанию в prompt,                                             // а текст приглашения пользователя задается при вызове zeroPrompt
 //let someNumber = zeroPrompt("Введите число")              // вызывает prompt("Введите число","0")
@@ -145,4 +146,69 @@ console.log(chessMin(-1,-5,3,15)) // вызывает Math.min(-1, 4, -5, 5, 3, 
 
 
 
-  
+//DOM
+
+/* ТЕще дз: переписать подсветку таблицы используя минимум this.* и максимум переменных замыкания. Для этого Надо занести обработчики событий во вложенный for  */
+
+function Table(rootElementClass) {
+
+    let domElement = document.querySelector(`.${rootElementClass}`);
+    this.tableCreate = () => {
+        let table = document.createElement('table');
+        for (let i = 0; i < 10; i++) {
+            let tr = document.createElement('tr');
+            table.append(tr);
+            for (let k = 0; k < 10; k++) {
+                let td = document.createElement('td');
+                if (i === 0) {
+                    td.innerText = k;
+                    tr.append(td);
+                } else if (k === 0) {
+                    td.innerText = i;
+                    tr.append(td);
+                } else {
+                    td.innerText = i * k;
+                    tr.append(td);
+                }
+            }
+        }
+        domElement.append(table);
+    }
+    this.cellLigth = () => {
+        const td = document.querySelectorAll('td');
+        td.forEach((item, i) => {
+            item.onmouseover = (e) => {
+                item.style.backgroundColor = 'yellow';
+                item.parentNode.style.backgroundColor = 'green';
+                let trCollect = Array.from(item.parentElement.parentElement.children);
+                trCollect.forEach((el, i) => {
+                    if (el.children[i].cellIndex === item.cellIndex) {
+                        Array.from(el.parentElement.children).forEach(elem => elem.children[i].style.backgroundColor = 'red');
+                    }
+                });
+            };
+
+            item.onmouseout = () => {
+                item.style.backgroundColor = '';
+                item.parentNode.style.backgroundColor = '';
+                let trCollect = Array.from(item.parentElement.parentElement.children);
+                trCollect.forEach((el, i) => {
+                    if (el.children[i].cellIndex === item.cellIndex) {
+                        Array.from(el.parentElement.children).forEach(elem => elem.children[i].style.backgroundColor = '');
+                    }
+
+                });
+            }
+        })
+
+    }
+}
+
+let table1 = new Table('root');
+table1.tableCreate();
+table1.cellLigth();
+
+
+let table2 = new Table('root');
+table1.tableCreate();
+table1.cellLigth();
