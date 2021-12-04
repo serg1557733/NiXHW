@@ -22,15 +22,10 @@ function Password(parent = document.body, open = false){
     }
 
     input.oninput = this.onChange = (input) => {
-        if (typeof this.onChange === 'function' && input.data !== value)
-            this.onChange(input.data)
         value = input.data;
-
     }
 
     btn.onclick = this.onOpenChange = (newOpen) => {
-        if (typeof this.onChange === 'function')
-            this.onOpenChange(readProp);
         readProp = !readProp;
         btn.innerText = readProp ? 'show' : 'hide';
         if (readProp){
@@ -56,7 +51,7 @@ function Password(parent = document.body, open = false){
     LoginForm
 С помощью предыдущего кода Password сделайте форму логина, кнопка в которой будет активна только если и login и пароль не пусты */
 
-function Form(parent = document.body, open = false, active = false){
+/* function Form(parent = document.body, open = false, active = false){
 
     const form = document.createElement('form');
     const input = document.createElement('input');
@@ -141,7 +136,7 @@ function Form(parent = document.body, open = false, active = false){
     this.onsubmit = function(){
         formUploader.setFormLoading(form);
     }
-}
+} */
 
 /* 
 LoginForm Constructor
@@ -149,7 +144,7 @@ LoginForm Constructor
 
 
 
-function Form(parent = document.body, open = false, active = false){
+/* function Form(parent = document.body, open = false, active = false){
 
     const form = document.createElement('form');
     const input = document.createElement('input');
@@ -165,11 +160,8 @@ function Form(parent = document.body, open = false, active = false){
     let readProp = open;
     let btnActive = active;
 
-     
-
     btn.innerText = readProp ? 'hide password' : 'show password'; 
   
-
     input.oninput = this.onChange = () => {
         value = input.value; 
         this.password = value;
@@ -253,12 +245,116 @@ function Form(parent = document.body, open = false, active = false){
     this.setPassword = (newPassword) => {
         this.password = newPassword;
     }
-}
-let form1 = new Form(root, true, false);
+} */
+
+//let form1 = new Form(root, true, false);
 
 
 /* Password Verify
 С помощью Password сделайте пару инпутов, которые проверяют введеный пароль (в двух полях ввода) на совпадение. Кнопка должна активизироваться при совпадающих паролях. При открытом пароле второе поле вводы должно пропадать с экрана Таким образом:
 Когда Password в скрытом режиме - появляется второй инпут (<input type='password'>) с паролем в скрытом режиме
 Когда Password в открытом режиме - второй инпут пропадат */
+
+
+function PasswordVerify(parent = document.body, open = false) {
+    const input = document.createElement('input');
+    const inputVerify = document.createElement('input');
+    const btn = document.createElement('button');
+    const btnSend = document.createElement('button');
+    
+
+    parent.append(input, inputVerify, btn, btnSend);
+    let value = '';
+    let passVerify = null;
+    let btnActive = false;
+    let readProp = open;
+ 
+
+    btn.innerText = readProp ? 'show' : 'hide' ;
+    btnSend.innerText = btnActive ?  'SEND' : ' Enter data'; 
+    inputVerify.style.display = readProp ? 'block' : 'none';
+
+    this.setValue = newValue => {
+        if (newValue != ' ' && newValue)
+            console.log(newValue);
+            value = newValue
+            if (value && !readProp ) {
+                btnActive = true;
+     
+           } else if (!value || !passVerify){
+              btnActive = false; 
+           }
+            if (btnActive) {
+                btnSend.removeAttribute('disabled','') 
+                btnSend.setAttribute('enabled','') 
+             } else {
+                 btnSend.removeAttribute('enabled','') 
+                 btnSend.setAttribute('disabled','') 
+             }
+             btnSend.innerText = btnActive ?  'SEND' : ' Enter data'; 
+        
+    }
+    this.setPasswordVerify = newVerify => {
+        passVerify = newVerify;
+        if (newVerify && newVerify == value)
+        console.log(newVerify == value)
+            if (value && passVerify) {
+                btnActive = true;
+     
+           } else if (!value || !passVerify){
+              btnActive = false; 
+           }
+            if (btnActive && passVerify == value) {
+                btnSend.removeAttribute('disabled','') 
+                btnSend.setAttribute('enabled','') 
+             } else {
+                 btnSend.removeAttribute('enabled','') 
+                 btnSend.setAttribute('disabled','') 
+             }
+             btnSend.innerText = btnActive ?  'SEND' : ' Enter data'; 
+             if (passVerify == value) btnActive = true;
+    }
+
+    this.setOpen = newOpen => {
+        if (newOpen != readProp && newOpen != undefined)
+            readProp = newOpen  
+            
+    }
+
+    input.oninput = this.onChange = (input) => {
+        value = input.data;
+        this.setValue(value);
+        
+    }
+
+    inputVerify.oninput = this.onChange = (inputVerify) => {
+        passVerify = inputVerify.data;
+        
+        this.setPasswordVerify(passVerify);
+
+    }
+
+    btn.onclick = this.onOpenChange = (newOpen) => {
+        readProp = !readProp;
+        btn.innerText = readProp ? 'show' : 'hide';
+        inputVerify.style.display = readProp ? 'block' : 'none';
+        if (readProp){
+           input.setAttribute('type','password')
+       } else {
+          input.setAttribute('type','text') 
+       }
+    }
+
+    if (btnActive) {
+        btnSend.removeAttribute('disabled','') 
+        btnSend.setAttribute('enabled','') 
+     } else {
+         btnSend.removeAttribute('enabled','') 
+         btnSend.setAttribute('disabled','') 
+     }
+   
+}
+   
+let pass1 = new PasswordVerify(root, false)
+
 
