@@ -8,3 +8,15 @@
     margin: 0 auto;
     padding: 50px;
 }
+form {
+    display: flex;
+    width: 300px;
+    height: 300px;
+    flex-direction: column;
+}
+input {
+    margin-bottom: 10px;
+}
+button {
+    margin-bottom: 10px;
+}

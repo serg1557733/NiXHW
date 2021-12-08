@@ -297,6 +297,7 @@ function PasswordVerify(parent = document.body, open = false) {
     this.setPasswordVerify = newVerify => {
         passVerify = newVerify;
         if (newVerify && newVerify == value)
+        console.log(newVerify, value)
         console.log(newVerify == value)
             if (value && passVerify) {
                 btnActive = true;
@@ -329,7 +330,6 @@ function PasswordVerify(parent = document.body, open = false) {
 
     inputVerify.oninput = this.onChange = (inputVerify) => {
         passVerify = inputVerify.data;
-        
         this.setPasswordVerify(passVerify);
 
     }
