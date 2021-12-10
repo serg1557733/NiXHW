@@ -13,21 +13,24 @@ function reducer(state, {type, ШО, СКОКА, касса, ДЕНЕГ }){
         }
     }
     if (type === 'КУПИТЬ'){ 
-        if (СКОКА < 0){
+        console.log( state[ШО] )
+        if ( state[ШО] < СКОКА || ДЕНЕГ == 0){
+            alert('NETU!')
             return state; 
-        } else if ( ДЕНЕГ == 0){
-            return state;
         } else {
             if (typeof state[ШО] === 'object' && СКОКА){
                 let {пиво} = state;
-                
+                if (пиво.count <  СКОКА) {
+                    alert('NETU!')
+                    return state;
+                } else
                 return {
                     ...state, пиво:{...пиво, count: пиво.count - СКОКА} ,
                       ДЕНЕГ : ДЕНЕГ - пиво.count,
                       касса : state[касса] + пиво.price
                 }  
             }
-            console.log(ШО);
+           // console.log(ШО);
             return {
                 ...state, 
                 [ШО]: state[ШО] - СКОКА,
@@ -81,7 +84,7 @@ createSelectItems('goods', store);
 
 btn.addEventListener('click',() => {
     store.dispatch({type: 'КУПИТЬ', 'ШО': select.value, 'СКОКА': input.value})
-    console.log(store.getState());
+   // console.log(store.getState());
 });
 
 function drawTable(root, store) {
@@ -98,7 +101,7 @@ function drawTable(root, store) {
             for (let [el, price] of Object.entries(pcs)){ 
                 let td = document.createElement('td');
                 let td1 = document.createElement('td');
-                console.log(el, price)              
+    //            console.log(el, price)              
                 td.innerText = el;
                 td1.innerText = price;
                 tr.append(td, td1);
