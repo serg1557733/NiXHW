@@ -7,7 +7,6 @@ function dataToDataTimeLocal(date) {
     return new Date(localTime).toISOString().slice(0, -1);
 }
 
-/***********************************************/
 
 function Form(el, data, okCallback, cancelCallback) {
     let formBody = document.createElement('div')
@@ -15,25 +14,55 @@ function Form(el, data, okCallback, cancelCallback) {
     okButton.innerHTML = 'OK'
 
     let cancelButton = document.createElement('button')
-    cancelButton.innerHTML = 'Cancel'
-
+    cancelButton.innerHTML = 'Cancel';
+    
     let inputCreators = {
         String(key, value, oninput) {
             let input = document.createElement('input')
-            input.placeholder = key
+            if (key[0] == '*'){
+                let reqSpan = document.createElement('span');
+                reqSpan.style.color = 'red';
+                reqSpan.style.display ='none';
+                reqSpan.innerText = ` ${key[0]}    `;
+                formBody.append(reqSpan);
+                key = key.slice(1);
+                input.setAttribute("required", "");  
+            }
+            input.placeholder = key; 
             input.value = value
             input.oninput = () => {
+              /* 
+                if(this.validators[key] && this.validators[key] == [key]){
+                   value = this.validators[key](value, key, data, input) ? input.value: value;
+                } else if (this.validators) {
+                    errorSpan.style.backgroundColor = 'red';
+                    errorSpan.innerText =  `Error ${newValue}`;
+                } */
                 if(value == '*****'){
                     input.type = 'password'
                 } else input.type = 'text';
                 if (!value.trim()){
                     return value;
-                }                oninput(input.value)
+                } 
+                if (input.value.length == 0){
+                    input.style.border = '1px solid red';
+                    okButton.setAttribute('disabled','disabled') 
+                } else if (value.trim() !== '') {
+                   /*  if (this.validators[key](value, key, data, input)){
+                        console.log('test')
+                    } */
+                    console.log('ok')
+                    input.style.border = '1px solid black'
+                    okButton.removeAttribute('disabled','') 
+                }
+                oninput(input.value)                 
+
             }
             return input
         },
         Boolean(key, value, oninput) {
             let input = document.createElement('input')
+            if (key[0] == '*')input.setAttribute("required", "");  
             input.type = 'checkbox'
             input.placeholder = key
             input.checked = value
@@ -41,24 +70,24 @@ function Form(el, data, okCallback, cancelCallback) {
             return input
         },
         Date(key, value, oninput) {
+            console.log(this.validators);
             let input = document.createElement('input')
+            console.log(key[0])
+            if (key[0] == '*')input.setAttribute("required", "");  
             input.type = 'datetime-local'
             input.placeholder = key
             input.value = dataToDataTimeLocal(value)
             input.onchange = () => {
-             
-             if (typeof this.validators === 'function') {
-                if(this.validators[key](value, key, data, input) === true){ 
-                    //validator use oninput or onchnge
-                    data[key] = newValue;
-                    console.log(key)
+         /*     if (typeof this.validators === 'function') {
+                if(this.validators == [key]){
+                    this.validators[key](value, key, data, input)? data[key] = newValue: data[key];
                 } else {
                     errorSpan.style.backgroundColor = 'red';
                     errorSpan.innerText =  `Error ${newValue}`;
-                }
+                } */
                 oninput(new Date(input.value))
             }   
-            }
+           // }
             return input
         },
     }
@@ -70,14 +99,13 @@ function Form(el, data, okCallback, cancelCallback) {
         input.placeholder = key;
         formBody.append(input);
         formBody.append(errorSpan);
-        //disabled for ok button and cancel
 
     }
 
     if (typeof okCallback === 'function') {
+        okButton.setAttribute('disabled','') 
         formBody.appendChild(okButton);
         okButton.onclick = (e) => {
-            console.log(this)
             this.okCallback(e)
         }
     }
@@ -90,7 +118,10 @@ function Form(el, data, okCallback, cancelCallback) {
     el.appendChild(formBody)
 
     this.okCallback = okCallback
-    this.cancelCallback = cancelCallback
+    this.cancelCallback = cancelCallback;
+
+    let initialState = Object.assign({}, {el, data, okCallback, cancelCallback});
+    this.initialState = initialState;
 
     this.data = data
     this.validators = {
@@ -99,17 +130,24 @@ function Form(el, data, okCallback, cancelCallback) {
 }
 
 let form = new Form(formContainer, {
-    name: 'Anakin',
-    surname: 'Skywalker',
+    '*name': 'Anakin',
+    '*surname': 'Skywalker',
     married: true,
     birthday: new Date((new Date).getTime() - 86400000 * 30 * 365)
-}, () => console.log('ok'), () => console.log('cancel'))
+}, () => console.log('ok'), () =>{
+    let {el, data, okCallback, cancelCallback} = form.initialState;
+   console.log(el, data, okCallback, cancelCallback);
+}  )
 form.okCallback = () => console.log('ok2')
+
+form.cancelCallback = () => {
+    console.log('datainit')
+   // form = new Form(data);
+}
 
 form.validators.surname = (value, key, data, input) => value.length > 2 &&
     value[0].toUpperCase() == value[0] &&
     !value.includes(' ') ? true : 'Wrong name'
 
 
-    //if key[0] == '*' it is requred field
-
+console.log(form);
