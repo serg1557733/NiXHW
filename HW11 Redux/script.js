@@ -41,7 +41,8 @@ function reducer(state, {
                         ...state,
                         ДЕНЕГ: state.ДЕНЕГ - state[ШО].price,
                         касса: state.касса + state[ШО].price,
-                        [ШО]: {...state[ШО],
+                        [ШО]: {
+                            ...state[ШО],
                             count: state[ШО].count - СКОКА
                         }
                     }
@@ -117,7 +118,7 @@ function drawTable(root, store) {
             tr.append(th);
             for (let [el, price] of Object.entries(pcs)) {
                 let td = document.createElement('td');
-                let td1 = document.createElement('td');           
+                let td1 = document.createElement('td');
                 td.innerText = el;
                 td1.innerText = price;
                 tr.append(td, td1);

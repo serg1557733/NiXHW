@@ -29,6 +29,7 @@ function Form(el, data, okCallback, cancelCallback) {
                 input.setAttribute("required", "");  
             }
             input.placeholder = key; 
+            console.log(key)
             input.value = value
             input.oninput = () => {
               /* 
@@ -91,17 +92,27 @@ function Form(el, data, okCallback, cancelCallback) {
             return input
         },
     }
+
+    function createForm(data) {
+        for (let [key, value] of Object.entries(data)) {
+            let errorSpan = document.createElement('span');
+            let input = inputCreators[value.constructor.name](key, value, newValue => {
+                    data[key] = newValue;
+            });
+            formBody.append(input);
+            formBody.append(errorSpan);
+        }
+
+    }
     for (let [key, value] of Object.entries(data)) {
         let errorSpan = document.createElement('span');
         let input = inputCreators[value.constructor.name](key, value, newValue => {
                 data[key] = newValue;
         });
-        input.placeholder = key;
         formBody.append(input);
         formBody.append(errorSpan);
-
     }
-
+    
     if (typeof okCallback === 'function') {
         okButton.setAttribute('disabled','') 
         formBody.appendChild(okButton);
@@ -112,7 +123,11 @@ function Form(el, data, okCallback, cancelCallback) {
 
     if (typeof cancelCallback === 'function') {
         formBody.appendChild(cancelButton);
-        cancelButton.onclick = cancelCallback
+        cancelButton.onclick = () => {
+           // formBody.remove();
+            createForm(initialState);
+           // this.cancelCallback();
+        }
     }
 
     el.appendChild(formBody)
@@ -120,7 +135,8 @@ function Form(el, data, okCallback, cancelCallback) {
     this.okCallback = okCallback
     this.cancelCallback = cancelCallback;
 
-    let initialState = Object.assign({}, {el, data, okCallback, cancelCallback});
+    let initialState = Object.assign({}, data);
+
     this.initialState = initialState;
 
     this.data = data
@@ -134,16 +150,13 @@ let form = new Form(formContainer, {
     '*surname': 'Skywalker',
     married: true,
     birthday: new Date((new Date).getTime() - 86400000 * 30 * 365)
-}, () => console.log('ok'), () =>{
-    let {el, data, okCallback, cancelCallback} = form.initialState;
-   console.log(el, data, okCallback, cancelCallback);
-}  )
+}, () => console.log('ok'), () =>{console.log('ok') }  )
 form.okCallback = () => console.log('ok2')
 
-form.cancelCallback = () => {
+/* form.cancelCallback = () => {
     console.log('datainit')
    // form = new Form(data);
-}
+} */
 
 form.validators.surname = (value, key, data, input) => value.length > 2 &&
     value[0].toUpperCase() == value[0] &&
