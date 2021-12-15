@@ -9,11 +9,23 @@
     padding: 50px;
 }
 table {
-    margin-top: 10px;
+    margin-top: 20px;
     border-style: ridge;
     text-align: center;
     vertical-align: middle;
+    background-color: rgb(228, 217, 217);
+    color: rgb(38, 21, 127);
 }
+/* table:before {
+    content: 'REDUX';
+    position: absolute;
+    top: 90px;
+    left: 52px;
+    width: 62%;
+    height: 100px;
+    border-bottom: 0;
+    background-color:chartreuse;
+} */
 td {
     border-style: ridge;
     padding: 5px;
@@ -25,3 +37,5 @@ td {
  tr:nth-child(2n + 1) {
     background-color: rgb(223, 227, 235);
  }
+
+

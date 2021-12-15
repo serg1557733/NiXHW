@@ -93,15 +93,26 @@ function Form(el, data, okCallback, cancelCallback) {
         },
     }
 
-    function createForm(data) {
-        for (let [key, value] of Object.entries(data)) {
-            let errorSpan = document.createElement('span');
-            let input = inputCreators[value.constructor.name](key, value, newValue => {
-                    data[key] = newValue;
-            });
-            formBody.append(input);
-            formBody.append(errorSpan);
+    function createForm(initialState) {
+        let formBody = document.createElement('div')
+        let okButton = document.createElement('button')
+        okButton.innerHTML = 'OK'
+        let cancelButton = document.createElement('button')
+        cancelButton.innerHTML = 'Cancel';
+            for (let [key, value] of Object.entries(initialState)) {
+                let errorSpan = document.createElement('span');
+                let input = inputCreators[value.constructor.name](key, value, newValue => {
+                    initialState[key] = newValue;
+                });
+        formBody.append(input, errorSpan, okButton, cancelButton  );
+        el.appendChild(formBody)
+        this.okCallback = okCallback
+        this.cancelCallback = cancelCallback;
+        this.data = data
+        this.validators = {
+    
         }
+    }
 
     }
     for (let [key, value] of Object.entries(data)) {
@@ -124,9 +135,9 @@ function Form(el, data, okCallback, cancelCallback) {
     if (typeof cancelCallback === 'function') {
         formBody.appendChild(cancelButton);
         cancelButton.onclick = () => {
-           // formBody.remove();
+            formBody.remove();
             createForm(initialState);
-           // this.cancelCallback();
+            this.cancelCallback();
         }
     }
 
