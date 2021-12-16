@@ -41,8 +41,6 @@ dataFetch(url).then(data => {
 });  */
 
 
-
-
 /* let dataFrom =async function() {
     await fetch('https://jsonplaceholder.typicode.com/todos/1')
         .then(response => response.json())
@@ -59,17 +57,6 @@ async function loadJson(url) {
     }
     throw new Error(response.status);
 }
-
-
-
-//Uncaught SyntaxError: await is only valid in async functions and the top level bodies of modules
-/* let dataResp = await Promise.all([
-     fetch('https://swapi.dev/api/people/1/'),
-     fetch('https://swapi.dev/api/people/1/'),
-     fetch('https://jsonplaceholder.typicode.com/todos/1')
-])
-console.log(dataResp); */
-
 
 
 /* 
@@ -122,22 +109,18 @@ function tableFromJson(rootElement) {
             let td = document.createElement('td');
             let td1 = document.createElement('td');
             if (typeof value == 'object') {
-                tableCells(value)
                 let btn = document.createElement('button');
                 btn.innerText = Object.keys(value);
-                this.onclick = console.log(value);
+                btn.onclick = () => tableCells(value);
                 td.append(btn);
             } else {
-
                 td.innerText = key;
                 td1.innerText = value;
             }
-
             tr.append(td)
             tr.append(td1)
             table.append(tr);
         }
-
         rootElement.append(table);
     };
 
@@ -145,7 +128,7 @@ function tableFromJson(rootElement) {
         data.forEach(tableCells(data));
     })
 }
-//tableFromJson(root);
+tableFromJson(root);
 
 /* myfetch
 Используя XMLHTTPRequest, напишите промисифицированную функцию myfetch, т. е.
@@ -189,3 +172,39 @@ console.log(Promise.race([delay, myfetch('https://jsonplaceholder.typicode.com/u
 console.log(Promise.race([delay, myfetch('https://jsonplaceholder.typicode.com/users')])) ;
 console.log(Promise.race([delay, myfetch('https://jsonplaceholder.typicode.com/users')])) ;
 console.log(Promise.race([delay, myfetch('https://jsonplaceholder.typicode.com/users')])) ;
+
+
+
+
+
+
+//testing fetch and promises
+async function f() {
+    let promise = myfetch('https://jsonplaceholder.typicode.com/users');
+    let result = await promise; // будет ждать, пока промис не выполнится (*)
+    return result; // "готово!"
+  }
+  
+  let t = f();
+  console.log(t)
+
+
+  async function showAvatar() {
+
+    let githubResponse = await fetch(`https://api.github.com/users/serg1557733`);
+    let githubUser = await githubResponse.json();
+
+    console.log(githubUser);
+
+    let img = document.createElement('img');
+    img.src = githubUser.avatar_url;
+    img.style.borderRadius = '100%';
+    document.body.append(img);
+
+    await new Promise((resolve, reject) => setTimeout(resolve, 3000));
+    img.remove();
+    return githubUser;
+  }
+
+  
+  showAvatar();
