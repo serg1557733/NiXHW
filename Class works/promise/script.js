@@ -52,7 +52,7 @@ function LoginForm(parent = document.body){
                                         inputP.value = '';
                                     };
                                 } 
-        btnCancel.onclick = () =>reject('Error in form data'); 
+        btnCancel.onclick = () => reject('Error in form data'); 
         })
 }
 
