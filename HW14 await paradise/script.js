@@ -66,7 +66,6 @@ function sendMessage(nick, message) {
     
 }
 
-
 let regYoutube = /http(?:s?):\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w\-\_]*)(&(amp;)?‌​[\w\?‌​=]*)?/; //regExp for YouTube video
 
 function readMessage(msg) {
