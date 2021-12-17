@@ -40,8 +40,9 @@ input {
     width: 600px;
 }
 #message {
-    
+    height: 100px;
     background-color:rgb(252, 250, 248);
+    resize: none;
 }
 .btn {
     height: 20px;
