@@ -175,3 +175,51 @@ form.validators.surname = (value, key, data, input) => value.length > 2 &&
 
 
 console.log(form);
+
+
+
+/* Starwars localStorage
+По в ok сохранять поредактированный объект localStorage. При дальнейшей работе выводить не объект с бэка, а объект из localStorage. В качестве ключей используйте ссылки из swapi.
+ localStorage - это глобальный объект в браузере, значения которого переживают перезагрузку вкладки/браузера/компьютера
+localStorage.userName ? alert(`Your name is ${localStorage.userName}`) : localStorage.userName = prompt('What is your name?') 
+попробуйте это и нажмите f5 */
+
+localStorage.userName ? alert(`Your name is ${localStorage.userName}`) : localStorage.userName = prompt('What is your name?') 
+console.log(localStorage);
+//localStorage.clear();
+//console.log(localStorage);
+
+
+
+/* Cached Promise
+Оберните fetch или myfetch в функцию, которая:
+Если данные найдены в localStorage - резолвится сразу, результатом промиса будет объект из localStorage (гляньте на Promise.resolve)
+Если данные не найдены в localStorage - ведет себя как обычный fetch/myfetch */
+
+
+function localStorageFetch(url) {
+        return new Promise(function (resolve, reject) {
+            if(localStorage.length){
+                resolve(localStorage)
+            } else {
+                const request = new XMLHttpRequest()
+                    request.open('GET', url, true)
+                    request.send();
+                    request.onreadystatechange = function () {
+                        if (request.readyState != 4) {
+                            return;
+                        }
+                        if (request.status == 200) {
+                            resolve(JSON.parse(request.responseText))
+                        } else {
+                            reject = () => console.log('Error: ' + request.status + ', ' + request.statusText);
+                        }
+                    }
+                
+                }
+        })    
+};
+
+
+localStorageFetch('https://jsonplaceholder.typicode.com/users')
+    .then(luke => console.log(luke))

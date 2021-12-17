@@ -1,6 +1,6 @@
 //Closures and scopes
 
-/* async function jsonPost(url, data) {
+async function jsonPost(url, data) {
     let response = await fetch(url, {
         method: "POST",
         headers: {
@@ -8,17 +8,18 @@
         },
         body: JSON.stringify(data)
       });
-      console.log(response);
     if (response.ok) {
         console.log('work')
         let json = await response.json();
+        console.log(json)
         return json;
     } else {
          new Error('jsonPost failed'+ response.status);
-    }   
-} */
+    }  
+}
 
-function jsonPost(url, data) {
+
+/* function jsonPost(url, data) {
     return new Promise((resolve, reject) => {
         var x = new XMLHttpRequest();
         x.onerror = () => reject(new Error('jsonPost failed'))
@@ -34,6 +35,8 @@ function jsonPost(url, data) {
             }
         }
     })
-}
-jsonPost("http://students.a-level.com.ua:10012", {func: 'addMessage', nick: "HellWords", message: 'AHHAAAH'}).then(res => console.log(res)
+} */
+
+
+jsonPost('https://jsonplaceholder.typicode.com/posts', {func: 'addMessage', nick: "HellWords", message: 'AHHAAAH'}).then(res => console.log(res)
 )
