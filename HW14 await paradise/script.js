@@ -4,6 +4,13 @@
 //Используя функцию jsonPost на адрес http://students.a-level.com.ua:10012 напишите чат-клиент, который:
 Stage 0
 Для поиграться скопируйте в консоль функцию jsonPost (или запустите её с этой страницы) и вызовите её с теми или иными объектами в качестве второго параметра. см. RPC. */
+function dataToDataTimeLocal(date) {
+    let timeStamp = date.getTime();
+    let timeZoneoffset = - date.getTimezoneOffset() * 60 * 1000;
+    let localTime = timeStamp + timeZoneoffset;
+    return new Date(localTime).toISOString().slice(0, -1);
+}
+
 
 let message = document.querySelector('#message');
 let nick = document.querySelector('#nickname');
@@ -43,15 +50,16 @@ function getMasseges(messageId = 0){
         .then(res => {
             res.data.forEach(el=> {
             readMessage(el)});
-            //console.log(res.nextMessageId);
+            let prevId = res.nextMessageId;
+            let currentId = messageId;
             let messageInterval = setInterval((id) => {
-                let prevId = res.nextMessageId;
-                console.log(prevId);
-                console.log(res.nextMessageId);
-                if(prevId < res.nextMessageId){
-                    console.log('get');
-                    getMasseges(res.nextMessageId) 
-                }
+                if(currentId < prevId){
+                    console.log('step')
+                   jsonPost("http://students.a-level.com.ua:10012",{func: "getMessages", messageId: 0}).then(res => res.nextMessageId, res.data.forEach(el=> {
+                    readMessage(el)}))
+                   currentId = res.nextMessageId;
+                  
+                } else {console.log('not working', prevId, currentId)}
             }  , 1000);
             }) ;
 }
@@ -60,9 +68,9 @@ getMasseges();
 
 
 function sendMessage(nick, message) {
-    jsonPost("http://students.a-level.com.ua:10012", {func: "addMessage", nick: nick, message: message}).then(res => console.log(res));
-    getMasseges();
-    message.value = '';
+    jsonPost("http://students.a-level.com.ua:10012", {func: "addMessage", nick: nick, message: message})
+    .then(res => getMasseges(res.nextMessageId));
+        message.value = ''; 
     
 }
 
@@ -72,6 +80,7 @@ function readMessage(msg) {
     let div = document.createElement('div');
     let spanUserName = document.createElement('span');
     let spanMessages = document.createElement('span');
+    let timeSpan = document.createElement('span');
     let idMsg = document.createElement('span');
     div.style.marginBottom = '10px';
 
@@ -80,6 +89,11 @@ function readMessage(msg) {
     spanMessages.style.backgroundColor = '#94f094';
     spanMessages.style.textAlign = 'rigth';
     spanUserName.innerHTML += `${msg.nick  || 'NONAME'}`;
+    timeSpan.style.backgroundColor = '#afafc2';
+    timeSpan.style.marginLeft = '10px';
+    timeSpan.innerText = dataToDataTimeLocal(new Date(msg.timestamp)).slice(0,19);
+    console.log(dataToDataTimeLocal(new Date(msg.timestamp)).slice(0,19));
+    
     //idMsg.innerText = nextMessageId;
     /* if (msg.message.match(regYoutube)) {
         console.log(`https://www.youtube.com/embed/${msg.message.match(regYoutube)[1]}`) // get youtube key
@@ -89,7 +103,10 @@ function readMessage(msg) {
     } */
     spanMessages.innerHTML += msg.message || 'Send empty message';//*** */
 
-    div.prepend(spanMessages);
+    div.prepend(spanMessages,timeSpan);
     div.prepend(spanUserName, idMsg);
     answer.prepend(div)
+
+
+    
 }
