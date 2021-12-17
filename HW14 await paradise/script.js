@@ -1,4 +1,4 @@
-//Chat Homework
+//Chat Homework  http://chat.serg15577330.fe.a-level.com.ua/
 
 function dataToDataTimeLocal(date) {
     let timeStamp = date.getTime();
@@ -6,7 +6,6 @@ function dataToDataTimeLocal(date) {
     let localTime = timeStamp + timeZoneoffset;
     return new Date(localTime).toISOString().slice(0, -1);
 }
-
 
 let message = document.querySelector('#message');
 let nick = document.querySelector('#nickname');
@@ -138,21 +137,19 @@ function readMessage(msg) {
 //Stage 6
 //Прогуглить и разобраться с fetch и заменить внутренности jsonPost на код, использующий fetch вместо XMLHttpRequest. 
 
-
-function jsonPost(url, data) {
-    return new Promise((resolve, reject) => {
-        var x = new XMLHttpRequest();
-        x.onerror = () => reject(new Error('jsonPost failed'))
-        //x.setRequestHeader('Content-Type', 'application/json');
-        x.open("POST", url, true);
-        x.send(JSON.stringify(data))
-
-        x.onreadystatechange = () => {
-            if (x.readyState == XMLHttpRequest.DONE && x.status == 200) {
-                resolve(JSON.parse(x.responseText))
-            } else if (x.status != 200) {
-                reject(new Error('status is not 200'))
-            }
-        }
-    })
+async function jsonPost(url, data) {
+    let response = await fetch(url, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+      console.log(response);
+    if (response.ok) {
+        let json = await response.json();
+        return json;
+    } else {
+        return new Error('jsonPost failed'+ response.status);
+    }   
 }
