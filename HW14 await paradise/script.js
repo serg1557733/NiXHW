@@ -11,10 +11,10 @@ let message = document.querySelector('#message');
 let nick = document.querySelector('#nickname');
 let btn = document.querySelector('.btn');
 
-btn.addEventListener('click', () => {
+btn.addEventListener('click',async () => {
     nickName = nickname.value;
     userMessage = message.value;
-    sendMessage(nickName, userMessage);
+    await sendMessage(nickName, userMessage);
     getMasseges();
     message.value = '';
 });
@@ -137,7 +137,7 @@ function readMessage(msg) {
 //Stage 6
 //Прогуглить и разобраться с fetch и заменить внутренности jsonPost на код, использующий fetch вместо XMLHttpRequest. 
 
-async function jsonPost(url, data) {
+/* async function jsonPost(url, data) {
     let response = await fetch(url, {
         method: "POST",
         headers: {
@@ -147,9 +147,9 @@ async function jsonPost(url, data) {
       });
       console.log(response);
     if (response.ok) {
-        let json = await response.json();
+        let json = response.json();
         return json;
     } else {
         return new Error('jsonPost failed'+ response.status);
     }   
-}
+} */
