@@ -34,7 +34,7 @@ async function trafficLight(rootElClass, greenDelay, redDelay, yellowDelay){
     while (true){
         root.children[0].style.backgroundColor = 'green';
         root.children[2].style.backgroundColor = '';
-        await delay(greenDelay);
+        // await delay(greenDelay);
         root.children[1].style.backgroundColor = 'yellow';
         root.children[0].style.backgroundColor = '';
         await delay(redDelay)
@@ -46,5 +46,48 @@ async function trafficLight(rootElClass, greenDelay, redDelay, yellowDelay){
 }
 trafficLight('.wrapper', 1000, 800, 2000);
 
-//domEventPromise
-//Реализуйте промисифицированную функцию, которая резолвит промис по событию в DOM:
+// domEventPromise
+// Реализуйте промисифицированную функцию, которая резолвит промис по событию в DOM:
+
+// domEventPromise(knopka, 'click').then( e => console.log('event click happens', e))
+
+//  Функция должна:
+// используя addEventListener повесить свой обработчик события на DOM element событие eventName
+// по событию зарезолвить промис отдав в качестве результата объект события
+// убрать обработчик с DOM-элемента, используя removeEventListener
+
+function domEventPromise(element, eventName){
+    return new Promise(function (resolve, reject){ 
+        const resolver = (e) => {
+           resolve(e.target) 
+           removeEventListener(eventName, resolver);
+        };
+        element.addEventListener(eventName, resolver);  
+    })
+
+}
+domEventPromise(knopka, 'click').then( e => console.log('event click happens', e))
+
+// PedestrianTrafficLight
+// Напишите упрощенный светофор для пешеходов
+// Stage 3
+// Не давайте возможности пешеходам сильно наглеть - предусмотрите задержку, после которой будет работать кнопка.
+
+
+async function PedestrianTrafficLight(rootElClass, greenDelay, redDelay){
+    let root = document.querySelector(rootElClass);
+    for (let i = 0; i < 2; i++){
+        let div = document.createElement('div');
+        div.style.backgroundColor = 'black';
+        root.append(div);
+    }
+    while (true){
+        root.children[0].style.backgroundColor = 'green';
+        root.children[1].style.backgroundColor = '';
+        await delay(greenDelay);
+        root.children[1].style.backgroundColor = 'red';
+        root.children[0].style.backgroundColor = '';
+        await delay(redDelay)
+    }
+}
+PedestrianTrafficLight('.wrapper1', 3000,2500);
