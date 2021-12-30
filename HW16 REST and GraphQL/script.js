@@ -62,7 +62,20 @@ const caterory = `query categ{CategoryFind(query: "[{}]"){name image {url}}}`;
 
 
 const createOrder = `mutation newOrder($o:OrderInput){OrderUpsert(order:$o){ _id total }}`;
-const goods = `{"orderGoods": [{"count": 1,"good": { "_id": "5e1f396856d8f720513e6cae"}}]}`;
+const goods = `{
+    "login": "Serg155",
+    "password": "00000000",
+    "o": {
+      "orderGoods": [
+        {
+          "count": 3,
+          "good": {
+            "_id": "5e1f396856d8f720513e6cae"
+          }
+        }
+      ]
+    }
+  }`;
 
 (async () => await gql(createOrder,goods).then(res => console.log(res)))();
 
@@ -72,8 +85,6 @@ const goods = `{"orderGoods": [{"count": 1,"good": { "_id": "5e1f396856d8f720513
 
 
 // console.log((await gql(`query NameForMe1($login:String, $password:String){login(login:$login, password:$password)}`, {login: 'tst', password: '123'})))
-
-
 
 
 console.log(localStorage)
