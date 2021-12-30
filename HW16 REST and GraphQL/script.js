@@ -1,11 +1,9 @@
-
-
 const getGQL = url =>
     (query, variables) => fetch(url, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json",
-             ...(localStorage.authToken ? {"Authorization": "Bearer " + localStorage.authToken} : null)
+            ...( localStorage.authToken ? {"Authorization": "Bearer " + localStorage.authToken} : null)
         },
         body: JSON.stringify({query, variables})
     }).then(res => res.json()).then(data => {
@@ -27,14 +25,13 @@ const userLogin =  {
                 "nick": "Serg155"
                 };
 (async () => await gql(login, userLogin)
-    .then(tok => (tok[0].split('.')[2]))
+    //.then(tok => (tok[0].split('.')[2]))
     .then(token => localStorage.authToken = token))()
 
 
 
-(async () => 
- await gql(`query NameForMe1($login:String, $password:String){login(login:$login, password:$password)}`,
- {login: 'serg155000', password: '123777'}).then(res => console.log(res)))();
+// (async () => await gql(`query NameForMe1($login:String, $password:String){login(login:$login, password:$password)}`,
+//  {login: 'serg155000', password: '123777'}).then(res => console.log(res)))();
 
  
 // написать тестовых запросов:
@@ -44,6 +41,8 @@ const caterory = `query categ{CategoryFind(query: "[{}]"){name image {url}}}`;
 
 (async () => 
  await gql(caterory).then(res => res[0].map(item => console.log(item))))();
+
+
 
 
 //  let newUser =  {
@@ -62,6 +61,12 @@ const caterory = `query categ{CategoryFind(query: "[{}]"){name image {url}}}`;
 // (async () => await gql(register, newUser).then(item => console.log(item)))();
 
 
+const createOrder = `mutation newOrder($o:OrderInput){OrderUpsert(order:$o){ _id total }}`;
+const goods = `{"orderGoods": [{"count": 1,"good": { "_id": "5e1f396856d8f720513e6cae"}}]}`;
+
+(async () => await gql(createOrder,goods).then(res => console.log(res)))();
+
+
 // function gqlLogin(login, password){
 //     return gql(`запрос на логин с $переменными`, {login, password})
 
@@ -71,18 +76,21 @@ const caterory = `query categ{CategoryFind(query: "[{}]"){name image {url}}}`;
 
 
 
+console.log(localStorage)
+
+
 // const originalFetch = fetch;
 
 // fetch = (url, params={headers:{}}) => { 
 //     params.headers.Authorization = "Bearer " + localStorage.authToken
 //     return originalFetch(url, params)
 // };
-// console.log({
-//     method: 'POST',
-//     headers: { 
-//         "Content-Type": "application/json",
-//         ...(localStorage.authToken ? {"Authorization": "Bearer " + localStorage.authToken} : null)
-//     }})
+console.log({
+    method: 'POST',
+    headers: { 
+        "Content-Type": "application/json",
+        ...(localStorage.authToken ? {"Authorization": "Bearer " + localStorage.authToken} : null)
+    }})
 
 
 
