@@ -134,8 +134,10 @@ function promiseReducer(state={}, {type, name, status, payload, error}){
     return state
 }
 
-const store = createStore(promiseReducer) //не забудьте combineReducers если он у вас уже есть
+const store = createStore(promiseReducer) 
+//не забудьте combineReducers если он у вас уже есть
 //const store = createStore(combineReducers({promise: promiseReducer, auth: authReducer}))
+
 store.subscribe(() => console.log(store.getState()))
 
 
@@ -182,10 +184,14 @@ const actionRootCats = () =>
         }
     }`))
 
-const actionCatById = (_id) =>  //добавить подкатегории
+const actionCatById = (_id) =>  
+
+    //добавить подкатегории
     actionPromise('catById', gql(`query catById($q: String){
         CategoryFindOne(query: $q){
-            _id name goods {
+            _id subCategories{
+                name _id
+            } name goods {
                 _id name price images {
                     url
                 }
@@ -211,6 +217,7 @@ const actionGoodById = (_id) =>
 
 store.dispatch(actionRootCats())
 
+
 store.subscribe(() => {
     const {rootCats} = store.getState()
     if (rootCats?.payload){
@@ -231,8 +238,7 @@ window.onhashchange = () => {
         category(){
             store.dispatch(actionCatById(_id))
         },
-        good(){ //задиспатчить actionGoodById
-            console.log('ТОВАРОСТРАНИЦА')
+        good(){
             store.dispatch(actionGoodById(_id))
         },
         login(){
@@ -254,8 +260,11 @@ store.subscribe(() => {
     const {catById} = store.getState()
     const [,route, _id] = location.hash.split('/')
     if (catById?.payload && route === 'category'){
-        const {name} = catById.payload 
-        main.innerHTML = `<h1>${name}</h1> ТУТ ДОЛЖНЫ БЫТЬ ПОДКАТЕГОРИИ`
+        const {name, subCategories} = catById.payload 
+        main.innerHTML = `<h1>${name}</h1>
+                           ${(subCategories ? subCategories.map(item => {
+                            return `<a href='#/category/${item._id}'>${item.name}</a>`}  ) : '')} 
+                            `
         for (const {_id, name, price, images} of catById.payload.goods){
             const card      = document.createElement('div');
             card.innerHTML = `<h2>${name}</h2>
@@ -281,28 +290,10 @@ store.subscribe(() => {
             card.innerHTML = `<h2>${name}</h2>  
                                <div> <strong>${price}грн</strong></div>
                                <img src="${backendURL}/${images[0].url}"/>
-                               <p>${description} </p>
-                              
-                            
-                                 `
+                               <p>${description} </p>                             `
           main.append(card)
-    //     
      }
-
-
-//     //ТУТ ДОЛЖНА БЫТЬ ПРОВЕРКА НА НАЛИЧИЕ goodById в редакс
-//     //и проверка на то, что сейчас в адресной строке адрес ВИДА #/good/АЙДИ
-//     //в таком случае очищаем main и рисуем информацию про товар с подробностями
  })
-
-
-//store.dispatch(actionPromise('delay1000', delay(1000)))
-//store.dispatch(actionPromise('delay2000', delay(2000)))
-//store.dispatch(actionPromise('failedfetch', fetch('https://swapi.dev/api/people/1/')
-  //.then(res => res.json())))
-
-
-
 
 
 console.log(JSON.stringify([{_id:'5e1f396856d8f720513e6cae'}]))
