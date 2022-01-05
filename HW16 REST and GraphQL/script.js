@@ -3,15 +3,13 @@ const getGQL = url =>
         method: 'POST',
         headers: {
             "Content-Type": "application/json",
-            ...( localStorage.authToken ? {"Authorization": "Bearer " + localStorage.authToken} : null)
+            ...(localStorage.authToken ? {"Authorization": "Bearer " + localStorage.authToken} : {})
         },
         body: JSON.stringify({query, variables})
     }).then(res => res.json()).then(data => {
-        console.log(data)
         if (data){
              return Object.values(data.data) 
         } else throw new Error('No data found')
-       
     }).catch(e => console.log(e));
 
 
@@ -43,7 +41,7 @@ const caterory = `query categ{CategoryFind(query: "[{}]"){name image {url}}}`;
  await gql(caterory).then(res => res[0].map(item => console.log(item))))();
 
 
-
+// добавить в getGQL все что надо, и еще проверку на localStorage.authToken. если токен есть, добавлять header Authorization.
 
 //  let newUser =  {
 //             "login": "Serg",
@@ -96,12 +94,13 @@ console.log(localStorage)
 //     params.headers.Authorization = "Bearer " + localStorage.authToken
 //     return originalFetch(url, params)
 // };
-console.log({
-    method: 'POST',
-    headers: { 
-        "Content-Type": "application/json",
-        ...(localStorage.authToken ? {"Authorization": "Bearer " + localStorage.authToken} : null)
-    }})
+
+// console.log({
+//     method: 'POST',
+//     headers: { 
+//         "Content-Type": "application/json",
+//         ...(localStorage.authToken ? {"Authorization": "Bearer " + localStorage.authToken} : {})
+//     }})
 
 
 
