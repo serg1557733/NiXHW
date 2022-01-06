@@ -135,10 +135,13 @@ function promiseReducer(state={}, {type, name, status, payload, error}){
 }
 
 const store = createStore(promiseReducer) 
+
+
+
 //не забудьте combineReducers если он у вас уже есть
 //const store = createStore(combineReducers({promise: promiseReducer, auth: authReducer}))
 
-store.subscribe(() => console.log(store.getState()))
+//store.subscribe(() => console.log(store.getState()))
 
 
 const actionPending             = name => ({type:'PROMISE',name, status: 'PENDING'})
@@ -249,6 +252,11 @@ window.onhashchange = () => {
             //отрисовка тут
             //по кнопке - store.dispatch(actionFullRegister(login, password))
         },
+        // dashboard() {
+            //actionOrders
+        //     #/dashboard
+       // orders page
+        // }
     }
     if (route in routes)
         routes[route]()
@@ -280,12 +288,10 @@ store.subscribe(() => {
 store.subscribe(() => {
     const {goodById} = store.getState()
    const [,route, _id] = location.hash.split('/')
-   console.log(goodById)
     
      if (goodById?.payload && route === 'good'){
         const {name, description, price, images} = goodById.payload 
          main.innerHTML = ``
-         console.log(goodById.payload)
             const card      = document.createElement('div');
             card.innerHTML = `<h2>${name}</h2>  
                                <div> <strong>${price}грн</strong></div>
@@ -296,5 +302,55 @@ store.subscribe(() => {
  })
 
 
-console.log(JSON.stringify([{_id:'5e1f396856d8f720513e6cae'}]))
+
+const jwtDecode = token => { 
+    try{
+        const payload = JSON.parse(atob(token.split('.')[1]))
+        return payload;
+    }
+    catch(e){
+    }
+}
+
+const store2 = createStore(authReducer);
+
+
+
+//console.log(jwtDecode(token));
+
+
+function authReducer(state, {type, token}){
+    if (state === undefined && localStorage.authToken){
+        token = localStorage.authToken;
+        type = 'AUTH_LOGIN';
+    }
+    if (type === 'AUTH_LOGIN'){
+        let decodeToken = jwtDecode(token)
+        if(decodeToken){
+            localStorage.authToken = token;
+            return {token, payload: decodeToken}
+        }  
+    }
+    if (type === 'AUTH_LOGOUT'){
+       localStorage.authToken = ''
+       return {}
+    }
+    return state || {}
+}
+
+const actionAuthLogin = (token) => ({
+    type:'AUTH_LOGIN',
+    token
+ })
+ const actionAuthLogout = () => ({
+    type:'AUTH_LOGOUT',
+ })
+
+// //поменять в createStore редьюсер на auth
+ console.log(store2.getState())
+ store2.subscribe(() => console.log(store2.getState()))
+// store2.dispatch(actionAuthLogin('где-то скопипастить токен'))
+ //store2.dispatch(actionAuthLogout())
+
+
 
