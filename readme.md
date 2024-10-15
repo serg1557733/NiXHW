@@ -1,3 +1,5 @@
+**Homeworks during programming training on the NIX company courses
+**
 chat  http://chat.serg15577330.fe.a-level.com.ua/
 
 analog controls      http://controlers.serg15577330.fe.a-level.com.ua/
